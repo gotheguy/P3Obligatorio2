@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProvEventos.Models
 {
+    [Table("Proveedor_VIP")]
     public class Proveedor_VIP : Proveedor
     {
         public double Porcentaje { get; set; }
