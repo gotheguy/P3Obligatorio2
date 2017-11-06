@@ -10,16 +10,21 @@ namespace ProvEventos.Models
     [Table("Rol")]
     public class Rol
     {
+        public enum Tipo
+        {
+            Administrador,
+            Organizador,
+            Proveedor
+        }
+
         [Key]
-        [Required]
-        [Column("idrol", Order = 1, TypeName = "integer")]
+        //[Required]
+        //[Column("id", Order = 1, TypeName = "int")]
         public int ID { get; set; }
 
-        public enum Roles
-        {
-            Proveedor,
-            Administrador,
-            Organizador
-        }
+        public Tipo tipo { get; set; }
+
+        [Required]
+        public virtual Usuario Usuario { get; set; }
     }
 }

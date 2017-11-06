@@ -7,8 +7,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProvEventos.Models
 {
+    [Table("Administrador")]
     public class Administrador : Usuario
     {
-
+        public virtual Usuario Usuario { get; set; }
     }
 }
