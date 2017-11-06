@@ -11,13 +11,13 @@ namespace ProvEventos.Models
     {
         protected override void Seed(ProvEventosContext context)
         {
-            //var usuarios = new List<Usuario>
-            //{
-            //    new Usuario{Nombre="R2521955",Clave="12345678",FechaRegistro=DateTime.Parse("2013-01-04"),Rol = Rol.Roles.Administrador}
-            //};
+            var usuarios = new List<Usuario>
+            {
+                new Usuario{Nombre="R2521955",Clave="12345678",FechaRegistro=DateTime.Parse("2013-01-04"),Rol = Rol.Tipo.Administrador}
+            };
 
-            //usuarios.ForEach(s => context.Usuarios.Add(s));
-            //context.SaveChanges();
+            usuarios.ForEach(s => context.Usuarios.Add(s));
+            context.SaveChanges();
         }
     }
 }

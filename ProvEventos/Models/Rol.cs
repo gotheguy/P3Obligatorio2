@@ -18,8 +18,8 @@ namespace ProvEventos.Models
         }
 
         [Key]
-        //[Required]
-        //[Column("id", Order = 1, TypeName = "int")]
+        [Required]
+        [Column("ID", Order = 1, TypeName = "int")]
         public int ID { get; set; }
 
         public Tipo tipo { get; set; }

@@ -13,27 +13,27 @@ namespace ProvEventos.Models
         [NotMapped]
         public static double Arancel;
 
-        //[Required]
-        //[Column("rut", Order = 2, TypeName = "varchar")]
+        [Required]
+        [Column("rut", Order = 2, TypeName = "varchar")]
         public string Rut { get; set; }
 
-        //[Required]
-        //[StringLength(100)]
-        //[Column("nombrefantasia", Order = 3, TypeName = "varchar")]
+        [Required]
+        [StringLength(100)]
+        [Column("nombrefantasia", Order = 3, TypeName = "varchar")]
         public string NombreFantasia { get; set; }
 
-        //[StringLength(100)]
-        //[DataType(DataType.EmailAddress)]
-        //[EmailAddress]
-        //[Column("email", Order = 4, TypeName = "varchar")]
+        [StringLength(100)]
+        [DataType(DataType.EmailAddress)]
+        [EmailAddress]
+        [Column("email", Order = 4, TypeName = "varchar")]
         public string Email { get; set; }
 
-        //[Required]
-        //[Phone]
-        //[Column("telefono", Order = 5, TypeName = "varchar")]
+        [Required]
+        [Phone]
+        [Column("telefono", Order = 5, TypeName = "varchar")]
         public string Telefono { get; set; }
 
-        //[Column("activo", Order = 6, TypeName = "bit")]
+        [Column("activo", Order = 6, TypeName = "bit")]
         public bool Activo { get; set; }
 
         public virtual Usuario Usuario { get; set; }

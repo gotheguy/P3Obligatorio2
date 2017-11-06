@@ -10,20 +10,20 @@ namespace ProvEventos.Models
     [Table("Organizador")]
     public class Organizador : Usuario
     {
-        //[Required]
-        //[StringLength(100)]
-        //[Column("nombre", Order = 2, TypeName = "varchar")]
-        public string Nombre { get; set; }
+        [Required]
+        [StringLength(100)]
+        [Column("nombre", Order = 2, TypeName = "varchar")]
+        public new string Nombre { get; set; }
 
-        //[Required]
-        //[StringLength(100)]
-        //[DataType(DataType.EmailAddress)]
-        //[EmailAddress]
-        //[Column("email", Order = 3, TypeName = "varchar")]
+        [Required]
+        [StringLength(100)]
+        [DataType(DataType.EmailAddress)]
+        [EmailAddress]
+        [Column("email", Order = 3, TypeName = "varchar")]
         public string Email { get; set; }
 
-        //[Phone]
-        //[Column("telefono", Order = 4, TypeName = "varchar")]
+        [Phone]
+        [Column("telefono", Order = 4, TypeName = "varchar")]
         public string Telefono { get; set; }
 
         public virtual Usuario Usuario { get; set; }

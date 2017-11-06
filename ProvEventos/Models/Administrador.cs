@@ -10,6 +10,7 @@ namespace ProvEventos.Models
     [Table("Administrador")]
     public class Administrador : Usuario
     {
+        [ForeignKey("ID")]
         public virtual Usuario Usuario { get; set; }
     }
 }
