@@ -13,7 +13,8 @@ namespace ProvEventos.Models
         {
             var usuarios = new List<Usuario>
             {
-                new Usuario{Nombre="R2521955",Clave="12345678",FechaRegistro=DateTime.Parse("2013-01-04"),Rol = Rol.Tipo.Administrador}
+                new Usuario{NombreUsuario="Gonzalo Otheguy",Clave="12345678",FechaRegistro=DateTime.Parse("2013-01-04"),Rol = Rol.Roles.Administrador},
+                new Usuario{NombreUsuario="Pablo García",Clave="987654321",FechaRegistro=DateTime.Parse("2016-05-24"),Rol = Rol.Roles.Administrador}
             };
 
             usuarios.ForEach(s => context.Usuarios.Add(s));

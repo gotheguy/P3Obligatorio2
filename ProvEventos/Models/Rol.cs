@@ -10,7 +10,7 @@ namespace ProvEventos.Models
     [Table("Rol")]
     public class Rol
     {
-        public enum Tipo
+        public enum Roles
         {
             Administrador,
             Organizador,
@@ -19,12 +19,12 @@ namespace ProvEventos.Models
 
         [Key]
         [Required]
-        [Column("ID", Order = 1, TypeName = "int")]
-        public int ID { get; set; }
+        [Column("IdRol", Order = 1, TypeName = "int")]
+        public int IdRol { get; set; }
 
-        public Tipo tipo { get; set; }
+        //[Column("Tipo", Order = 2)]
+        public Roles rol { get; set; }
 
-        [Required]
-        public virtual Usuario Usuario { get; set; }
+        public virtual ICollection<Usuario> Usuarios { get; set; }
     }
 }

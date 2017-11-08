@@ -12,20 +12,22 @@ namespace ProvEventos.Models
     {
         [Required]
         [StringLength(100)]
-        [Column("nombre", Order = 2, TypeName = "varchar")]
-        public new string Nombre { get; set; }
+        [Column("NombreOrganizador", Order = 2, TypeName = "varchar")]
+        public string NombreOrganizador { get; set; }
 
         [Required]
         [StringLength(100)]
         [DataType(DataType.EmailAddress)]
         [EmailAddress]
-        [Column("email", Order = 3, TypeName = "varchar")]
+        [Column("Email", Order = 3, TypeName = "varchar")]
         public string Email { get; set; }
 
         [Phone]
-        [Column("telefono", Order = 4, TypeName = "varchar")]
+        [Column("Telefono", Order = 4, TypeName = "varchar")]
         public string Telefono { get; set; }
 
+        [ForeignKey("IdUsuario")]
+        [Column("IdUsuario", Order = 5, TypeName = "int")]
         public virtual Usuario Usuario { get; set; }
     }
 }

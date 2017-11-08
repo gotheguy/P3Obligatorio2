@@ -10,15 +10,15 @@ namespace ProvEventos.Models
     [Table("Servicio")]
     public class Servicio
     {
-        [Key]
         [Required]
-        [Column("ID", Order = 1, TypeName = "int")]
-        public int ID { get; set; }
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity), Key()]
+        [Column("IdServicio", Order = 1, TypeName = "int")]
+        public int IdServicio { get; set; }
 
         [Required]
         [StringLength(50)]
-        [Column("Nombre", Order = 2, TypeName = "varchar")]
-        public string Nombre { get; set; }
+        [Column("NombreServicio", Order = 2, TypeName = "varchar")]
+        public string NombreServicio { get; set; }
 
         [StringLength(250)]
         [Column("Descripcion", Order = 3, TypeName = "varchar")]
@@ -29,7 +29,6 @@ namespace ProvEventos.Models
         public string Imagen { get; set; }
 
         public virtual Proveedor Proveedor { get; set; }
-
         public virtual ICollection<Tipo_Evento> Eventos { get; set; }
     }
 }

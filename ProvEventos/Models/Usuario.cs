@@ -13,14 +13,14 @@ namespace ProvEventos.Models
     {
         [Required]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity), Key()]
-        [Column("ID", Order = 1, TypeName = "int")]
-        public int ID { get; set; }
+        [Column("IdUsuario", Order = 1, TypeName = "int")]
+        public int IdUsuario { get; set; }
 
         [Required(ErrorMessage = "El nombre no puede estar vacío")]
         [DisplayName("Nombre de usuario")]
         [StringLength(30)]
-        [Column("Nombre", Order = 2, TypeName = "varchar")]
-        public string Nombre { get; set; }
+        [Column("NombreUsuario", Order = 2, TypeName = "varchar")]
+        public string NombreUsuario { get; set; }
 
         [Required(ErrorMessage = "La contraseña no puede estar vacía")]
         [DataType(DataType.Password)]
@@ -35,7 +35,6 @@ namespace ProvEventos.Models
         [Column("FechaRegistro", Order = 4, TypeName = "datetime")]
         public DateTime FechaRegistro { get; set; }
 
-        [Required]
-        public virtual Rol.Tipo Rol { get; set; }
+        public virtual Rol.Roles Rol { get; set; }
     }
 }
