@@ -13,16 +13,17 @@ namespace ProvEventos.Models
         [NotMapped]
         public static double Arancel;
 
-        [Required]
+        [Key]
+        [Required(ErrorMessage = "El RUT no puede estar vacío")]
         [Column("Rut", Order = 2, TypeName = "int")]
         public int Rut { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(100, ErrorMessage = "El nombre de fantasía no puede ser mayor a 100 caracteres")]
         [Column("NombreFantasia", Order = 3, TypeName = "varchar")]
         public string NombreFantasia { get; set; }
 
-        [StringLength(100)]
+        [StringLength(100, ErrorMessage = "El email no puede ser mayor a 100 caracteres")]
         [DataType(DataType.EmailAddress)]
         [EmailAddress]
         [Column("Email", Order = 4, TypeName = "varchar")]
@@ -36,6 +37,8 @@ namespace ProvEventos.Models
         [Column("Activo", Order = 6, TypeName = "bit")]
         public bool Activo { get; set; }
 
+        [ForeignKey("IdUsuario")]
+        [Column("IdUsuario", Order = 7, TypeName = "int")]
         public virtual Usuario Usuario { get; set; }
 
         public virtual ICollection<Servicio> Servicios { get; set; }

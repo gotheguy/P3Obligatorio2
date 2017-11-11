@@ -15,7 +15,7 @@ namespace ProvEventos.Controllers
         private ProvEventosContext db = new ProvEventosContext();
 
         // GET: Usuario
-        public ActionResult Index()
+        public ActionResult Index(string buscar)
         {
             return View(db.Usuarios.ToList());
         }

@@ -18,7 +18,7 @@ namespace ProvEventos.Models
 
         [Required(ErrorMessage = "El nombre no puede estar vacío")]
         [DisplayName("Nombre de usuario")]
-        [StringLength(30)]
+        [StringLength(50, ErrorMessage = "El nombre no puede ser mayor a 50 caracteres")]
         [Column("NombreUsuario", Order = 2, TypeName = "varchar")]
         public string NombreUsuario { get; set; }
 
@@ -32,7 +32,7 @@ namespace ProvEventos.Models
         [Required]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [Column("FechaRegistro", Order = 4, TypeName = "datetime")]
+        [Column("FechaRegistro", Order = 4, TypeName = "date")]
         public DateTime FechaRegistro { get; set; }
 
         public virtual Rol.Roles Rol { get; set; }

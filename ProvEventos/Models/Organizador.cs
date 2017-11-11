@@ -11,12 +11,12 @@ namespace ProvEventos.Models
     public class Organizador : Usuario
     {
         [Required]
-        [StringLength(100)]
+        [StringLength(100, ErrorMessage = "El nombre no puede ser mayor a 100 caracteres")]
         [Column("NombreOrganizador", Order = 2, TypeName = "varchar")]
         public string NombreOrganizador { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(100, ErrorMessage = "El email no puede ser mayor a 100 caracteres")]
         [DataType(DataType.EmailAddress)]
         [EmailAddress]
         [Column("Email", Order = 3, TypeName = "varchar")]

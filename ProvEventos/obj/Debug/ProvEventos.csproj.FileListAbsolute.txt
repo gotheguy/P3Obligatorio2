@@ -162,3 +162,6 @@ C:\Users\inglo_000\Documents\GitHub\P3Obligatorio2\ProvEventos\bin\Microsoft.Owi
 C:\Users\inglo_000\Documents\GitHub\P3Obligatorio2\ProvEventos\obj\Debug\ProvEventos.csprojResolveAssemblyReference.cache
 C:\Users\inglo_000\Documents\GitHub\P3Obligatorio2\ProvEventos\obj\Debug\ProvEventos.dll
 C:\Users\inglo_000\Documents\GitHub\P3Obligatorio2\ProvEventos\obj\Debug\ProvEventos.pdb
+C:\Users\inglo_000\Documents\GitHub\P3Obligatorio2\ProvEventos\obj\Debug\ProvEventos.Migrations.InitialCreate.resources
+C:\Users\inglo_000\Documents\GitHub\P3Obligatorio2\ProvEventos\obj\Debug\ProvEventos.csproj.GenerateResource.Cache
+C:\Users\inglo_000\Documents\GitHub\P3Obligatorio2\ProvEventos\obj\Debug\ProvEventos.Migrations.MaxLengthOnNames.resources

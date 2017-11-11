@@ -16,11 +16,11 @@ namespace ProvEventos.Models
         public int IdTipoEvento { get; set; }
 
         [Required]
-        [StringLength(100)]
+        [StringLength(100, ErrorMessage = "El nombre no puede ser mayor a 100 caracteres")]
         [Column("NombreTipoEvento", Order = 2, TypeName = "varchar")]
         public string Nombre { get; set; }
 
-        [StringLength(250)]
+        [StringLength(250, ErrorMessage = "El nombre no puede ser mayor a 250 caracteres")]
         [Column("Descripcion", Order = 3, TypeName = "varchar")]
         public string Descripcion { get; set; }
 
