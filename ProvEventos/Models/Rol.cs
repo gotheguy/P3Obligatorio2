@@ -19,10 +19,10 @@ namespace ProvEventos.Models
 
         [Key]
         [Required]
-        [Column("IdRol", Order = 1, TypeName = "int")]
-        public int IdRol { get; set; }
+        [Column("RolID", Order = 1, TypeName = "int")]
+        public int RolID { get; set; }
 
-        //[Column("Tipo", Order = 2)]
+        [Column("rol", Order = 2)]
         public Roles rol { get; set; }
 
         public virtual ICollection<Usuario> Usuarios { get; set; }

@@ -12,15 +12,17 @@ namespace ProvEventos.Models
     {
         [Required]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity), Key()]
-        [Column("IdServicio", Order = 1, TypeName = "int")]
-        public int IdServicio { get; set; }
+        [Column("ServicioID", Order = 1, TypeName = "int")]
+        public int ServicioID { get; set; }
 
         [Required]
         [StringLength(50, ErrorMessage = "El nombre no puede ser mayor a 50 caracteres")]
+        [Display(Name = "Nombre")]
         [Column("NombreServicio", Order = 2, TypeName = "varchar")]
         public string NombreServicio { get; set; }
 
         [StringLength(250, ErrorMessage = "La descripción no puede ser mayor a 250 caracteres")]
+        [Display(Name = "Descripción")]
         [Column("Descripcion", Order = 3, TypeName = "varchar")]
         public string Descripcion { get; set; }
 
@@ -28,7 +30,7 @@ namespace ProvEventos.Models
         [Column("Imagen", Order = 4, TypeName = "varchar")]
         public string Imagen { get; set; }
 
-        public virtual Proveedor Proveedor { get; set; }
+        public virtual ICollection<Proveedor> Proveedores { get; set; }
         public virtual ICollection<Tipo_Evento> Eventos { get; set; }
     }
 }

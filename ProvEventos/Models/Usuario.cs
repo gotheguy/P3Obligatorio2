@@ -13,8 +13,8 @@ namespace ProvEventos.Models
     {
         [Required]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity), Key()]
-        [Column("IdUsuario", Order = 1, TypeName = "int")]
-        public int IdUsuario { get; set; }
+        [Column("UsuarioID", Order = 1, TypeName = "int")]
+        public int UsuarioID { get; set; }
 
         [Required(ErrorMessage = "El nombre no puede estar vacío")]
         [DisplayName("Nombre de usuario")]

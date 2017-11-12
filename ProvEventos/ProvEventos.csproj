@@ -202,19 +202,11 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ServicioController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201711110502546_InitialCreate.cs" />
-    <Compile Include="Migrations\201711110502546_InitialCreate.Designer.cs">
-      <DependentUpon>201711110502546_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711110508261_MaxLengthOnNames.cs" />
-    <Compile Include="Migrations\201711110508261_MaxLengthOnNames.Designer.cs">
-      <DependentUpon>201711110508261_MaxLengthOnNames.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Administrador.cs" />
     <Compile Include="Models\Organizador.cs" />
@@ -227,6 +219,7 @@
     <Compile Include="Models\ProvEventosInitializer.cs" />
     <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\Servicio.cs" />
+    <Compile Include="Models\Telefono.cs" />
     <Compile Include="Models\Tipo_Evento.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -244,6 +237,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Views\Servicio\DisplayData.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -295,6 +289,11 @@
     <Content Include="Views\Usuario\Details.cshtml" />
     <Content Include="Views\Usuario\Edit.cshtml" />
     <Content Include="Views\Usuario\Index.cshtml" />
+    <Content Include="Views\Servicio\Create.cshtml" />
+    <Content Include="Views\Servicio\Delete.cshtml" />
+    <Content Include="Views\Servicio\Details.cshtml" />
+    <Content Include="Views\Servicio\Edit.cshtml" />
+    <Content Include="Views\Servicio\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -306,14 +305,6 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201711110502546_InitialCreate.resx">
-      <DependentUpon>201711110502546_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711110508261_MaxLengthOnNames.resx">
-      <DependentUpon>201711110508261_MaxLengthOnNames.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

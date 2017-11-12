@@ -22,12 +22,10 @@ namespace ProvEventos.Models
         [Column("Email", Order = 3, TypeName = "varchar")]
         public string Email { get; set; }
 
-        [Phone]
-        [Column("Telefono", Order = 4, TypeName = "varchar")]
-        public string Telefono { get; set; }
-
-        [ForeignKey("IdUsuario")]
-        [Column("IdUsuario", Order = 5, TypeName = "int")]
+        [ForeignKey("UsuarioID"), Key]
+        [Column("UsuarioID", Order = 5, TypeName = "int")]
         public virtual Usuario Usuario { get; set; }
+
+        public virtual ICollection<Telefono> Telefonos { get; set; }
     }
 }

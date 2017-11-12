@@ -13,7 +13,6 @@ namespace ProvEventos.Models
         [NotMapped]
         public static double Arancel;
 
-        [Key]
         [Required(ErrorMessage = "El RUT no puede estar vacío")]
         [Column("Rut", Order = 2, TypeName = "int")]
         public int Rut { get; set; }
@@ -29,17 +28,14 @@ namespace ProvEventos.Models
         [Column("Email", Order = 4, TypeName = "varchar")]
         public string Email { get; set; }
 
-        [Required]
-        [Phone]
-        [Column("Telefono", Order = 5, TypeName = "varchar")]
-        public string Telefono { get; set; }
-
         [Column("Activo", Order = 6, TypeName = "bit")]
         public bool Activo { get; set; }
 
-        [ForeignKey("IdUsuario")]
-        [Column("IdUsuario", Order = 7, TypeName = "int")]
+        [ForeignKey("UsuarioID"),Key]
+        [Column("UsuarioID", Order = 7, TypeName = "int")]
         public virtual Usuario Usuario { get; set; }
+
+        public virtual ICollection<Telefono> Telefonos { get; set; }
 
         public virtual ICollection<Servicio> Servicios { get; set; }
     }
