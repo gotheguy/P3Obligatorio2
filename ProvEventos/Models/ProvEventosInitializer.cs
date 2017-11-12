@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data.Entity;
 using ProvEventos.Models;
+using System.IO;
 
 namespace ProvEventos.Models 
 {
@@ -30,6 +31,8 @@ namespace ProvEventos.Models
             usuarios.ForEach(s => context.Usuarios.Add(s));
             context.SaveChanges();
 
+
+            var file = File.ReadAllText(@"~\App_Data\FileServicios.txt");
         }
     }
 }

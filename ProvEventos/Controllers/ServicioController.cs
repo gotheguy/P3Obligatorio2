@@ -20,9 +20,10 @@ namespace ProvEventos.Controllers
             return View(db.Servicios.ToList());
         }
 
-        public ActionResult DisplayData()
+        public ActionResult Files()
         {
-            return View("~/Views/Servicio/DisplayData.cshtml");
+
+            return View();
         }
 
         // GET: Servicio/Details/5
