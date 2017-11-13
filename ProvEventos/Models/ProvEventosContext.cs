@@ -1,24 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Web;
+using ProvEventos.Models;
 
 namespace ProvEventos.Models
 {
     public class ProvEventosContext : DbContext
     {
-        public ProvEventosContext() : base("name=ProvEventos")
-        {
-
-        }
-
         public DbSet<Proveedor> Proveedores { get; set; }
+        public DbSet<Proveedor_VIP> ProveedoresVIP { get; set; }
+        public DbSet<Proveedor_Comun> ProveedoresComun { get; set; }
         public DbSet<Servicio> Servicios { get; set; }
         public DbSet<Tipo_Evento> Eventos { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
-        public DbSet<Proveedor_VIP> ProveedoresVIP { get; set; }
-        public DbSet<Proveedor_Comun> ProveedoresComun { get; set; }
+        public DbSet<Administrador> Administradores { get; set; }
+        public DbSet<Organizador> Organizadores { get; set; }
         public DbSet<Rol> Roles { get; set; }
+        public DbSet<Telefono> Telefonos { get; set; }
+
+        public ProvEventosContext() : base("name=ProvEventos")
+        {
+        }
+         
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+        }
     }
 }
