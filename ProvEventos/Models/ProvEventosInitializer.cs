@@ -13,7 +13,7 @@ namespace ProvEventos.Models
         protected override void Seed(ProvEventosContext context)
         {
             var usuarios = new List<Usuario>
-            {
+            {   
                 new Usuario{NombreUsuario="Gonzalo Frade",Clave="23523523",FechaRegistro=DateTime.Parse("2013-01-04"),Rol = Rol.Roles.Administrador},
                 new Usuario{NombreUsuario="Pablo García",Clave="98765432",FechaRegistro=DateTime.Parse("2016-05-24"),Rol = Rol.Roles.Administrador},
                 new Usuario{NombreUsuario="Javier Mesa",Clave="25434534",FechaRegistro=DateTime.Parse("2015-01-03"),Rol = Rol.Roles.Proveedor},
@@ -30,9 +30,6 @@ namespace ProvEventos.Models
 
             usuarios.ForEach(s => context.Usuarios.Add(s));
             context.SaveChanges();
-
-
-            var file = File.ReadAllText(@"~\App_Data\FileServicios.txt");
         }
     }
 }

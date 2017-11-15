@@ -24,6 +24,7 @@ namespace ProvEventos.Models
 
         [Required(ErrorMessage = "La contraseña no puede estar vacía")]
         [DataType(DataType.Password)]
+        [DisplayName("Contraseña")]
         [MinLength(8, ErrorMessage = "Largo mínimo de la contraseña: 8"),
         MaxLength(12, ErrorMessage = "Largo máximo de la contraseña:12")]
         [Column("Clave", Order = 3, TypeName = "varchar")]
@@ -31,6 +32,7 @@ namespace ProvEventos.Models
 
         [Required]
         [DataType(DataType.Date)]
+        [DisplayName("Fecha de registro")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Column("FechaRegistro", Order = 4, TypeName = "date")]
         public DateTime FechaRegistro { get; set; }

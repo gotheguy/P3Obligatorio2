@@ -10,107 +10,111 @@ using ProvEventos.Models;
 
 namespace ProvEventos.Controllers
 {
-    public class UsuarioController : Controller
+    public class OrganizadorController : Controller
     {
         private ProvEventosContext db = new ProvEventosContext();
 
-        // GET: Usuario
+        // GET: Organizador
         public ActionResult Index()
         {
-            return View(db.Usuarios.ToList());
+            return View(db.Organizadores.ToList());
         }
 
-        // GET: Usuario/Details/5
+        // GET: Organizador/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Usuario usuario = db.Usuarios.Find(id);
-            if (usuario == null)
+            Organizador organizador = db.Organizadores.Find(id);
+            if (organizador == null)
             {
                 return HttpNotFound();
             }
-            return View(usuario);
+            return View(organizador);
         }
 
-        // GET: Usuario/Create
+        // GET: Organizador/Create
         public ActionResult Create()
         {
+            ViewBag.UsuarioID = new SelectList(db.Usuarios, "UsuarioID", "NombreUsuario");
             return View();
         }
 
-        // POST: Usuario/Create
+        // POST: Organizador/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UsuarioID,NombreUsuario,Clave,FechaRegistro,Rol")] Usuario usuario)
+        public ActionResult Create([Bind(Include = "NombreOrganizador,Email")] Organizador organizador)
         {
             if (ModelState.IsValid)
             {
-                db.Usuarios.Add(usuario);
+                db.Usuarios.Add(organizador);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(usuario);
+            ViewBag.UsuarioID = new SelectList(db.Usuarios, "UsuarioID", "NombreUsuario", organizador.UsuarioID);
+            return View(organizador);
         }
 
-        // GET: Usuario/Edit/5
+        // GET: Organizador/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Usuario usuario = db.Usuarios.Find(id);
-            if (usuario == null)
+            Organizador organizador = db.Organizadores.Find(id);
+            if (organizador == null)
             {
                 return HttpNotFound();
             }
-            return View(usuario);
+            ViewBag.UsuarioID = new SelectList(db.Usuarios, "UsuarioID", "NombreUsuario", organizador.UsuarioID);
+            return View(organizador);
         }
 
-        // POST: Usuario/Edit/5
+        // POST: Organizador/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UsuarioID,NombreUsuario,Clave,FechaRegistro,Rol")] Usuario usuario)
+        public ActionResult Edit([Bind(Include = "NombreOrganizador,Email")] Organizador organizador)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(usuario).State = EntityState.Modified;
+                db.Entry(organizador).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(usuario);
+            ViewBag.UsuarioID = new SelectList(db.Usuarios, "UsuarioID", "NombreUsuario", organizador.UsuarioID);
+            return View(organizador);
         }
 
-        // GET: Usuario/Delete/5
+        // GET: Organizador/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Usuario usuario = db.Usuarios.Find(id);
-            if (usuario == null)
+            Organizador organizador = db.Organizadores.Find(id);
+            if (organizador == null)
             {
                 return HttpNotFound();
             }
-            return View(usuario);
+            return View(organizador);
         }
 
-        // POST: Usuario/Delete/5
+        // POST: Organizador/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Usuario usuario = db.Usuarios.Find(id);
-            db.Usuarios.Remove(usuario);
+            Organizador organizador = db.Organizadores.Find(id);
+            db.Usuarios.Remove(organizador);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
