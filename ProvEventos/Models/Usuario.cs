@@ -37,6 +37,7 @@ namespace ProvEventos.Models
         [Column("FechaRegistro", Order = 4, TypeName = "date")]
         public DateTime FechaRegistro { get; set; }
 
+        public virtual Organizador Organizador { get; set; }
         public virtual Rol.Roles Rol { get; set; }
     }
 }

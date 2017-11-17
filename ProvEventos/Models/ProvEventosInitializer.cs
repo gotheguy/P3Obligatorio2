@@ -30,6 +30,15 @@ namespace ProvEventos.Models
 
             usuarios.ForEach(s => context.Usuarios.Add(s));
 
+            //var organizadores = new List<Organizador>
+            //{
+            //    new Organizador {UsuarioID=1,
+            //    NombreOrganizador="Proevisa",Email="proevisa@hotmail.com"}
+            //};
+
+            //organizadores.ForEach(s => context.Organizadores.Add(s));
+
+
             try
             {   // Open the text file using a stream reader.
                 List<Servicio> servicios = new List<Servicio>();
