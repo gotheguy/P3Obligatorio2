@@ -7,23 +7,23 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProvEventos.Models
 {
+    public enum Roles
+    {
+        Administrador,
+        Organizador,
+        Proveedor
+    }
+
     [Table("Rol")]
     public class Rol
     {
-        public enum Roles
-        {
-            Administrador,
-            Organizador,
-            Proveedor
-        }
-
         [Key]
         [Required]
         [Column("RolID", Order = 1, TypeName = "int")]
         public int RolID { get; set; }
 
-        [Column("rol", Order = 2)]
-        public Roles rol { get; set; }
+        [Column("Rol", Order = 2)]
+        public Roles? Roles { get; set; }
 
         public virtual ICollection<Usuario> Usuarios { get; set; }
     }

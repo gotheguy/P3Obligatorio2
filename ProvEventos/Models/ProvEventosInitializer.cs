@@ -5,38 +5,75 @@ using System.Web;
 using System.Data.Entity;
 using ProvEventos.Models;
 using System.IO;
+using System.Data.Entity.Validation;
 
 namespace ProvEventos.Models 
 {
-    public class ProvEventosInitializer : DropCreateDatabaseIfModelChanges<ProvEventosContext>
+    public class ProvEventosInitializer : DropCreateDatabaseAlways<ProvEventosContext>
     {
         protected override void Seed(ProvEventosContext context)
         {
+
+            var roles = new List<Rol>
+            {
+                new Rol{RolID=1,Roles = Roles.Administrador},
+                new Rol{RolID=2,Roles = Roles.Organizador},
+                new Rol{RolID=3,Roles = Roles.Proveedor}
+            };
+
+            roles.ForEach(s => context.Roles.Add(s));
+            context.SaveChanges();
+
+
             var usuarios = new List<Usuario>
             {
-                new Usuario{NombreUsuario="Gonzalo Frade",Clave="23523523",FechaRegistro=DateTime.Parse("2013-01-04"),Rol = Rol.Roles.Administrador},
-                new Usuario{NombreUsuario="Pablo García",Clave="98765432",FechaRegistro=DateTime.Parse("2016-05-24"),Rol = Rol.Roles.Administrador},
-                new Usuario{NombreUsuario="Javier Mesa",Clave="25434534",FechaRegistro=DateTime.Parse("2015-01-03"),Rol = Rol.Roles.Proveedor},
-                new Usuario{NombreUsuario="Rodrigo Alvez",Clave="67462454",FechaRegistro=DateTime.Parse("2017-04-04"),Rol = Rol.Roles.Organizador},
-                new Usuario{NombreUsuario="Walter Perez",Clave="56365673",FechaRegistro=DateTime.Parse("2017-12-12"),Rol = Rol.Roles.Proveedor},
-                new Usuario{NombreUsuario="Sebastián Rocha",Clave="42733546",FechaRegistro=DateTime.Parse("2016-07-27"),Rol = Rol.Roles.Administrador},
-                new Usuario{NombreUsuario="Facundo Martinez",Clave="26354554",FechaRegistro=DateTime.Parse("2015-11-24"),Rol = Rol.Roles.Administrador},
-                new Usuario{NombreUsuario="Matías Herrera",Clave="47537834",FechaRegistro=DateTime.Parse("2016-02-28"),Rol = Rol.Roles.Proveedor},
-                new Usuario{NombreUsuario="Diego Gomez",Clave="11325256",FechaRegistro=DateTime.Parse("2017-07-12"),Rol = Rol.Roles.Proveedor},
-                new Usuario{NombreUsuario="Ramiro Franco",Clave="54578447",FechaRegistro=DateTime.Parse("2017-05-30"),Rol = Rol.Roles.Organizador},
-                new Usuario{NombreUsuario="Hernán Palacios",Clave="97995634",FechaRegistro=DateTime.Parse("2016-01-15"),Rol = Rol.Roles.Proveedor},
-                new Usuario{NombreUsuario="Camilo Moar",Clave="25233666",FechaRegistro=DateTime.Parse("2014-01-21"),Rol = Rol.Roles.Proveedor}
+                new Usuario{NombreUsuario="Gonzalo Frade",Clave="23523523",FechaRegistro=DateTime.Parse("2013-01-04"),Rol = roles[0]},
+                new Usuario{NombreUsuario="Pablo García",Clave="98765432",FechaRegistro=DateTime.Parse("2016-05-24"),Rol = roles[0]},
+                new Usuario{NombreUsuario="Javier Mesa",Clave="25434534",FechaRegistro=DateTime.Parse("2015-01-03"),Rol = roles[2]},
+                new Usuario{NombreUsuario="Rodrigo Alvez",Clave="67462454",FechaRegistro=DateTime.Parse("2017-04-04"),Rol = roles[1]},
+                new Usuario{NombreUsuario="Walter Perez",Clave="56365673",FechaRegistro=DateTime.Parse("2017-12-12"),Rol = roles[2]},
+                new Usuario{NombreUsuario="Sebastián Rocha",Clave="42733546",FechaRegistro=DateTime.Parse("2016-07-27"),Rol = roles[0]},
+                new Usuario{NombreUsuario="Facundo Martinez",Clave="26354554",FechaRegistro=DateTime.Parse("2015-11-24"),Rol = roles[0]},
+                new Usuario{NombreUsuario="Matías Herrera",Clave="47537834",FechaRegistro=DateTime.Parse("2016-02-28"),Rol = roles[2]},
+                new Usuario{NombreUsuario="Diego Gomez",Clave="11325256",FechaRegistro=DateTime.Parse("2017-07-12"),Rol = roles[2]},
+                new Usuario{NombreUsuario="Ramiro Franco",Clave="54578447",FechaRegistro=DateTime.Parse("2017-05-30"),Rol = roles[1]},
+                new Usuario{NombreUsuario="Hernán Palacios",Clave="97995634",FechaRegistro=DateTime.Parse("2016-01-15"),Rol = roles[1]},
+                new Usuario{NombreUsuario="Camilo Moar",Clave="25233666",FechaRegistro=DateTime.Parse("2014-01-21"),Rol = roles[2]}
             };
 
             usuarios.ForEach(s => context.Usuarios.Add(s));
+            context.SaveChanges();
+
+
+            var servicios = new List<Servicio>
+            {
+                new Servicio{NombreServicio="Fotografía",Descripcion="Fotógrafo profesional para eventos",Imagen=""},
+                new Servicio{NombreServicio="Filmación",Descripcion="Equipo de filmación",Imagen=""},
+                new Servicio{NombreServicio="Cotillón",Descripcion="Paquetes de cotillón varios",Imagen=""},
+                new Servicio{NombreServicio="Catering",Descripcion="Servicios de catering profesional",Imagen=""},
+                new Servicio{NombreServicio="Grupo musical",Descripcion="Grupo musical en vivo",Imagen=""},
+                new Servicio{NombreServicio="Lunch",Descripcion="Lunch completos para 20 personas",Imagen=""},
+                new Servicio{NombreServicio="Personal de salón",Descripcion="Personal de salón','Mozos y personal de cocina",Imagen=""},
+                new Servicio{NombreServicio="Sommelier",Descripcion="Sommelier profesional para eventos",Imagen=""},
+                new Servicio{NombreServicio="Decoración",Descripcion="Grupo de decoradores profesionales",Imagen=""},
+                new Servicio{NombreServicio="Iluminación",Descripcion="Iluminación profesional",Imagen=""},
+            };
+
+            servicios.ForEach(s => context.Servicios.Add(s));
+            context.SaveChanges();
 
             //var organizadores = new List<Organizador>
             //{
-            //    new Organizador {UsuarioID=1,
-            //    NombreOrganizador="Proevisa",Email="proevisa@hotmail.com"}
+            //    new Organizador {
+            //    NombreOrganizador="Proevisa",Email="proevisa@hotmail.com",
+            //    //, Telefonos= new List<Telefono> { new Telefono { Numero = "099302444" } },
+            //    Clave="23523523"
+            //    }
             //};
-
             //organizadores.ForEach(s => context.Organizadores.Add(s));
+
+
+
 
 
             try
@@ -96,7 +133,8 @@ namespace ProvEventos.Models
                         proveedores.Add(p);
                     }
                     sr.Close();
-                }            }
+                }
+            }
             catch (Exception e)
             {
                 Console.WriteLine("The file could not be read:");

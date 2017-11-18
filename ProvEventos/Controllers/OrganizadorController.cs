@@ -47,7 +47,7 @@ namespace ProvEventos.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UsuarioID,NombreUsuario,Clave,FechaRegistro,Rol,NombreOrganizador,Email")] Organizador organizador)
+        public ActionResult Create([Bind(Include = "zNombreUsuario,Clave,FechaRegistro,Rol,NombreOrganizador,Email")] Organizador organizador)
         {
             if (ModelState.IsValid)
             {

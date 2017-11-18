@@ -38,6 +38,8 @@ namespace ProvEventos.Models
         public DateTime FechaRegistro { get; set; }
 
         public virtual Organizador Organizador { get; set; }
-        public virtual Rol.Roles Rol { get; set; }
+
+        [NotMapped]
+        public virtual Rol Rol { get; set; }
     }
 }
