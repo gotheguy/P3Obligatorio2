@@ -37,9 +37,10 @@ namespace ProvEventos.Models
         [Column("FechaRegistro", Order = 4, TypeName = "date")]
         public DateTime FechaRegistro { get; set; }
 
+        [NotMapped]
         public virtual Organizador Organizador { get; set; }
 
-        [NotMapped]
+        public int RolId { get; set; }
         public virtual Rol Rol { get; set; }
     }
 }

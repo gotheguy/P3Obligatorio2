@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace ProvEventos.Models
@@ -49,55 +50,70 @@ namespace ProvEventos.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [StringLength(100, ErrorMessage = "El email no puede ser mayor a 100 caracteres")]
+        [DataType(DataType.EmailAddress)]
+        [DisplayName("Email")]
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "La contraseña no puede estar vacía")]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
-        public string Password { get; set; }
+        [DisplayName("Contraseña")]
+        [MinLength(8, ErrorMessage = "Largo mínimo de la contraseña: 8"),
+        MaxLength(12, ErrorMessage = "Largo máximo de la contraseña:12")]
+        public string Clave { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Recordarme")]
         public bool RememberMe { get; set; }
     }
 
     public class RegisterViewModel
     {
         [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
+        [StringLength(100, ErrorMessage = "El nombre no puede ser mayor a 100 caracteres")]
+        [DisplayName("Organizador")]
+        public string NombreOrganizador { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "El email no puede ser mayor a 100 caracteres")]
+        [DataType(DataType.EmailAddress)]
+        [DisplayName("Email")]
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "La contraseña no puede estar vacía")]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
-        public string Password { get; set; }
+        [DisplayName("Contraseña")]
+        [MinLength(8, ErrorMessage = "Largo mínimo de la contraseña: 8"),
+        MaxLength(12, ErrorMessage = "Largo máximo de la contraseña:12")]
+        public string Clave { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; }
+        [Display(Name = "Confirmar contraseña")]
+        [Compare("Clave", ErrorMessage = "La contraseña y la confirmación no coinciden")]
+        public string ConfirmarClave { get; set; }
     }
 
     public class ResetPasswordViewModel
     {
         [Required]
+        [StringLength(100, ErrorMessage = "El email no puede ser mayor a 100 caracteres")]
+        [DataType(DataType.EmailAddress)]
+        [DisplayName("Email")]
         [EmailAddress]
-        [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [Required(ErrorMessage = "La contraseña no puede estar vacía")]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
-        public string Password { get; set; }
+        [DisplayName("Contraseña")]
+        [MinLength(8, ErrorMessage = "Largo mínimo de la contraseña: 8"),
+        MaxLength(12, ErrorMessage = "Largo máximo de la contraseña:12")]
+        public string Clave { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; }
+        [Display(Name = "Confirmar contraseña")]
+        [Compare("Clave", ErrorMessage = "La contraseña y la confirmación no coinciden")]
+        public string ConfirmarClave { get; set; }
 
         public string Code { get; set; }
     }

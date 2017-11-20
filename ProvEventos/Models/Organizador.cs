@@ -20,12 +20,13 @@ namespace ProvEventos.Models
         [Required]
         [StringLength(100, ErrorMessage = "El email no puede ser mayor a 100 caracteres")]
         [DataType(DataType.EmailAddress)]
-        [DisplayName("Correo electrónico")]
+        [DisplayName("Email")]
         [EmailAddress]
         [Column("Email", Order = 3, TypeName = "varchar")]
         public string Email { get; set; }
 
         [Required]
+        [NotMapped]
         public virtual Usuario Usuario { get; set; }
 
         public virtual ICollection<Telefono> Telefonos { get; set; }

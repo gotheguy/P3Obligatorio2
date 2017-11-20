@@ -6,28 +6,57 @@ using System.Data.Entity;
 using ProvEventos.Models;
 using System.IO;
 using System.Data.Entity.Validation;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity;
 
 namespace ProvEventos.Models 
 {
-    public class ProvEventosInitializer : DropCreateDatabaseAlways<ProvEventosContext>
+    public class ProvEventosInitializer : DropCreateDatabaseIfModelChanges<ProvEventosContext>
     {
         protected override void Seed(ProvEventosContext context)
         {
-
             var roles = new List<Rol>
             {
-                new Rol{RolID=1,Roles = Roles.Administrador},
-                new Rol{RolID=2,Roles = Roles.Organizador},
-                new Rol{RolID=3,Roles = Roles.Proveedor}
+                new Rol { RolID = 1, Roles = Roles.Administrador },
+                new Rol { RolID = 2, Roles = Roles.Organizador },
+                new Rol { RolID = 3, Roles = Roles.Proveedor }
             };
 
             roles.ForEach(s => context.Roles.Add(s));
             context.SaveChanges();
 
+            if (!context.Roles.Any(r => r.Roles == Roles.Administrador))
+            {
+                var store = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(store);
+                var role = new IdentityRole { Name = "Administrador" };
+
+                manager.Create(role);
+
+            }
+
+            if (!context.Roles.Any(r => r.Roles == Roles.Organizador))
+            {
+                var store = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(store);
+                var role = new IdentityRole { Name = "Organizador" };
+
+                manager.Create(role);
+            }
+
+            if (!context.Roles.Any(r => r.Roles == Roles.Proveedor))
+            {
+                var store = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(store);
+                var role = new IdentityRole { Name = "Proveedor" };
+
+                manager.Create(role);
+            }
+
 
             var usuarios = new List<Usuario>
             {
-                new Usuario{NombreUsuario="Gonzalo Frade",Clave="23523523",FechaRegistro=DateTime.Parse("2013-01-04"),Rol = roles[0]},
+                new Usuario{NombreUsuario="Gonzalo Frade",Clave="23523523",FechaRegistro=DateTime.Parse("2013-01-04"),Rol = roles[0] },
                 new Usuario{NombreUsuario="Pablo García",Clave="98765432",FechaRegistro=DateTime.Parse("2016-05-24"),Rol = roles[0]},
                 new Usuario{NombreUsuario="Javier Mesa",Clave="25434534",FechaRegistro=DateTime.Parse("2015-01-03"),Rol = roles[2]},
                 new Usuario{NombreUsuario="Rodrigo Alvez",Clave="67462454",FechaRegistro=DateTime.Parse("2017-04-04"),Rol = roles[1]},
@@ -45,7 +74,7 @@ namespace ProvEventos.Models
             context.SaveChanges();
 
 
-            var servicios = new List<Servicio>
+            var servicios1 = new List<Servicio>
             {
                 new Servicio{NombreServicio="Fotografía",Descripcion="Fotógrafo profesional para eventos",Imagen=""},
                 new Servicio{NombreServicio="Filmación",Descripcion="Equipo de filmación",Imagen=""},
@@ -59,18 +88,40 @@ namespace ProvEventos.Models
                 new Servicio{NombreServicio="Iluminación",Descripcion="Iluminación profesional",Imagen=""},
             };
 
-            servicios.ForEach(s => context.Servicios.Add(s));
+            servicios1.ForEach(s => context.Servicios.Add(s));
             context.SaveChanges();
 
-            //var organizadores = new List<Organizador>
+
+
+            //try
+            //{
+            //    var organizadores = new List<Organizador>
             //{
             //    new Organizador {
             //    NombreOrganizador="Proevisa",Email="proevisa@hotmail.com",
-            //    //, Telefonos= new List<Telefono> { new Telefono { Numero = "099302444" } },
-            //    Clave="23523523"
+            //    Telefonos= new List<Telefono> { new Telefono { Numero = "099302444" } },
+            //    Usuario = {NombreUsuario="Gonzalo Frade",Clave="23523523",FechaRegistro=DateTime.Parse("2013-01-04"),Rol = roles[0]}
             //    }
             //};
-            //organizadores.ForEach(s => context.Organizadores.Add(s));
+            //    organizadores.ForEach(s => context.Organizadores.Add(s));
+            //    context.SaveChanges();
+            //}
+            //catch (DbEntityValidationException e)
+            //{
+            //    foreach (var eve in e.EntityValidationErrors)
+            //    {
+            //        Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+            //            eve.Entry.Entity.GetType().Name, eve.Entry.State);
+            //        foreach (var ve in eve.ValidationErrors)
+            //        {
+            //            Console.WriteLine("- Property: \"{0}\", Value: \"{1}\", Error: \"{2}\"",
+            //                ve.PropertyName,
+            //                eve.Entry.CurrentValues.GetValue<object>(ve.PropertyName),
+            //                ve.ErrorMessage);
+            //        }
+            //    }
+            //    throw;
+            //}
 
 
 
