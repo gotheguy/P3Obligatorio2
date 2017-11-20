@@ -31,11 +31,9 @@ namespace ProvEventos.Models
         [Column("Activo", Order = 6, TypeName = "bit")]
         public bool Activo { get; set; }
 
-        [ForeignKey("UsuarioID"),Key]
-        [Column("UsuarioID", Order = 7, TypeName = "int")]
+        [Required]
+        [NotMapped]
         public virtual Usuario Usuario { get; set; }
-
-        public virtual ICollection<Telefono> Telefonos { get; set; }
 
         public virtual ICollection<Servicio> Servicios { get; set; }
     }

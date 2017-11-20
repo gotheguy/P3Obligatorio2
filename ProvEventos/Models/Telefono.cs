@@ -16,12 +16,12 @@ namespace ProvEventos.Models
         public int TelefonoID { get; set; }
 
         [Required]
-        [Phone]
-        [RegularExpression(@"^([0-9]{10})$", ErrorMessage = "Teléfono inválido")]
+        //[RegularExpression(@"^([0-9]{10})$", ErrorMessage = "Teléfono inválido")]
         [Column("Numero", Order = 2, TypeName = "varchar")]
         public string Numero { get; set; }
 
-        public virtual Proveedor Proveedor { get; set; }
-        public virtual Organizador Organizador { get; set; }
+        [Required]
+        public int UsuarioID { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

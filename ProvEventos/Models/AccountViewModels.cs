@@ -81,6 +81,11 @@ namespace ProvEventos.Models
         [EmailAddress]
         public string Email { get; set; }
 
+        [Required]
+        [DataType(DataType.PhoneNumber)]
+        //[RegularExpression(@"^([0-9]{10})$", ErrorMessage = "Teléfono inválido")]
+        public string Numero { get; set; }
+
         [Required(ErrorMessage = "La contraseña no puede estar vacía")]
         [DataType(DataType.Password)]
         [DisplayName("Contraseña")]

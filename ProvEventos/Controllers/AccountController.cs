@@ -11,6 +11,7 @@ using Microsoft.Owin.Security;
 using ProvEventos.Models;
 using System.Collections.Generic;
 using System.Web.Security;
+using System.Data.Entity.Validation;
 
 namespace ProvEventos.Controllers
 {
@@ -160,28 +161,38 @@ namespace ProvEventos.Controllers
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email, };
                 var result = await UserManager.CreateAsync(user, model.Clave);
 
+
                 var usuario = new Usuario()
                 {
                     NombreUsuario = model.Email,
                     Clave = model.Clave,
                     FechaRegistro = DateTime.Now,
-                    RolId = 2
+                    RolID = 2
                 };
 
-                //var organizador = new Organizador()
-                //{
-                //    NombreOrganizador = model.NombreOrganizador,
-                //    Email = model.Email,
-                //    UsuarioID = usuario.UsuarioID
-                //};
+                var organizador = new Organizador()
+                {
+                    NombreOrganizador = model.NombreOrganizador,
+                    Email = model.Email,
+                    
+                };
+
+                var telefono = new Telefono()
+                {
+                    Numero = model.Numero
+                };
 
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     db.Usuarios.Add(usuario);
+                    db.Organizadores.Add(organizador);
+                    db.Telefonos.Add(telefono);
                     db.SaveChanges();
+
                     return RedirectToAction("Index", "Home");
                 }
+               
                 AddErrors(result);
             }
 

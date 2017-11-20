@@ -28,7 +28,5 @@ namespace ProvEventos.Models
         [Required]
         [NotMapped]
         public virtual Usuario Usuario { get; set; }
-
-        public virtual ICollection<Telefono> Telefonos { get; set; }
     }
 }

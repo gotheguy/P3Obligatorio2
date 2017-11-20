@@ -37,10 +37,12 @@ namespace ProvEventos.Models
         [Column("FechaRegistro", Order = 4, TypeName = "date")]
         public DateTime FechaRegistro { get; set; }
 
+        public virtual ICollection<Telefono> Telefonos { get; set; }
+
         [NotMapped]
         public virtual Organizador Organizador { get; set; }
 
-        public int RolId { get; set; }
+        public int RolID { get; set; }
         public virtual Rol Rol { get; set; }
     }
 }
