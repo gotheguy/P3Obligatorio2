@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Data.Entity;
-using ProvEventos.Models;
-using System.IO;
-using System.Data.Entity.Validation;
+﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Validation;
+using System.IO;
+using System.Linq;
 
-namespace ProvEventos.Models 
+namespace ProvEventos.Models
 {
     public class ProvEventosInitializer : DropCreateDatabaseIfModelChanges<ProvEventosContext>
     {
@@ -74,22 +72,22 @@ namespace ProvEventos.Models
             context.SaveChanges();
 
 
-            var servicios1 = new List<Servicio>
-            {
-                new Servicio{NombreServicio="Fotografía",Descripcion="Fotógrafo profesional para eventos",Imagen=""},
-                new Servicio{NombreServicio="Filmación",Descripcion="Equipo de filmación",Imagen=""},
-                new Servicio{NombreServicio="Cotillón",Descripcion="Paquetes de cotillón varios",Imagen=""},
-                new Servicio{NombreServicio="Catering",Descripcion="Servicios de catering profesional",Imagen=""},
-                new Servicio{NombreServicio="Grupo musical",Descripcion="Grupo musical en vivo",Imagen=""},
-                new Servicio{NombreServicio="Lunch",Descripcion="Lunch completos para 20 personas",Imagen=""},
-                new Servicio{NombreServicio="Personal de salón",Descripcion="Personal de salón','Mozos y personal de cocina",Imagen=""},
-                new Servicio{NombreServicio="Sommelier",Descripcion="Sommelier profesional para eventos",Imagen=""},
-                new Servicio{NombreServicio="Decoración",Descripcion="Grupo de decoradores profesionales",Imagen=""},
-                new Servicio{NombreServicio="Iluminación",Descripcion="Iluminación profesional",Imagen=""},
-            };
+            //var servicios = new List<Servicio>
+            //{
+            //    new Servicio{NombreServicio="AgregadoConCoso",Descripcion="Fotógrafo profesional para eventos",Imagen=""},
+                //new Servicio{NombreServicio="Filmación",Descripcion="Equipo de filmación",Imagen=""},
+                //new Servicio{NombreServicio="Cotillón",Descripcion="Paquetes de cotillón varios",Imagen=""},
+                //new Servicio{NombreServicio="Catering",Descripcion="Servicios de catering profesional",Imagen=""},
+                //new Servicio{NombreServicio="Grupo musical",Descripcion="Grupo musical en vivo",Imagen=""},
+                //new Servicio{NombreServicio="Lunch",Descripcion="Lunch completos para 20 personas",Imagen=""},
+                //new Servicio{NombreServicio="Personal de salón",Descripcion="Personal de salón','Mozos y personal de cocina",Imagen=""},
+                //new Servicio{NombreServicio="Sommelier",Descripcion="Sommelier profesional para eventos",Imagen=""},
+                //new Servicio{NombreServicio="Decoración",Descripcion="Grupo de decoradores profesionales",Imagen=""},
+                //new Servicio{NombreServicio="Iluminación",Descripcion="Iluminación profesional",Imagen=""},
+            //};
 
-            servicios1.ForEach(s => context.Servicios.Add(s));
-            context.SaveChanges();
+            //servicios1.ForEach(s => context.Servicios.Add(s));
+            //context.SaveChanges();
 
 
 
@@ -130,11 +128,10 @@ namespace ProvEventos.Models
             try
             {   // Open the text file using a stream reader.
                 List<Servicio> servicios = new List<Servicio>();
-                string serviceFile = @"~\App_data\FileServicios.txt";
-                string providerFile = @"~\App_data\FileProveedores.txt";
+                string serviceFile = AppDomain.CurrentDomain.BaseDirectory + @"\App_data\FileServicios.txt";
+                string providerFile = AppDomain.CurrentDomain.BaseDirectory + @"\App_data\FileProveedores.txt";
                 using (StreamReader sr = new StreamReader(serviceFile))
                 {
-                    // Read the stream to a string, and write the string to the console.
                     string line = "";
                     while ((line = sr.ReadLine()) != null)
                     {
@@ -144,31 +141,41 @@ namespace ProvEventos.Models
                             NombreServicio = data[0]
                         };
                         if (s.TipoEvento == null) s.TipoEvento = new List<Tipo_Evento>();
-                        List<string> dataTipo = data.Where((item, index) => index > 0).ToList();
-                        foreach (string tipo in dataTipo)
+                        string datosTipo = data[1];
+                        List<string> dataTipo = datosTipo.Split(':').ToList();
+                        if (datosTipo.Length != 0)
                         {
-                            Tipo_Evento tEvento = new Tipo_Evento() { NombreTipoEvento = tipo };
-                            s.TipoEvento.Add(tEvento);
+                            foreach (string tipo in dataTipo)
+                            {
+                                Tipo_Evento tEvento = new Tipo_Evento() { NombreTipoEvento = tipo };
+                                s.TipoEvento.Add(tEvento);
+                            }
                         }
                         servicios.Add(s);
                     }
                     sr.Close();
                 }
+                
+                servicios.ForEach(ser => context.Servicios.Add(ser));
+                context.SaveChanges();
 
                 List<Proveedor> proveedores = new List<Proveedor>();
                 using (StreamReader sr = new StreamReader(providerFile))
                 {
-                    // Read the stream to a string, and write the string to the console.
                     string line = "";
                     while ((line = sr.ReadLine()) != null)
                     {
                         List<string> data = line.Split('#').ToList();
                         Proveedor p = new Proveedor()
                         {
+                            NombreUsuario = data[2],
                             Rut = data[0],
                             NombreFantasia = data[1],
                             Email = data[2],
-                            Activo = true
+                            Activo = true,
+                            Clave = "Pass1234!",
+                            FechaRegistro = DateTime.Today,
+                            RolID = 3
                         };
                         Telefono t = new Telefono() { Numero = data[3] };
                         if (p.Telefonos == null) p.Telefonos = new List<Telefono>();
@@ -178,12 +185,34 @@ namespace ProvEventos.Models
                         foreach (string s in serv)
                         {
                             string[] dataServ = s.Split(':');
-                            Servicio servicio = context.Servicios.FirstOrDefault(c => c.NombreServicio == dataServ[0]);
+                            Servicio servicio = context.Servicios.AsEnumerable().FirstOrDefault(c => c.NombreServicio == dataServ[0]);
+                            servicio.Descripcion = dataServ[1];
+                            servicio.Imagen = dataServ[2] != "No hay imagen disponible" ? dataServ[2]:"";
                             p.Servicios.Add(servicio);
                         }
+                        var usuario = new Usuario
+                        {
+                            NombreUsuario = p.Email,
+                            Clave = "Pass1234!",
+                            FechaRegistro = DateTime.Today,
+                            RolID = 3
+                        };
+                        p.Usuario = usuario;
                         proveedores.Add(p);
                     }
                     sr.Close();
+                }
+                proveedores.ForEach(p => context.Proveedores.Add(p));
+                context.SaveChanges();
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Console.WriteLine("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                    }
                 }
             }
             catch (Exception e)
@@ -191,7 +220,6 @@ namespace ProvEventos.Models
                 Console.WriteLine("The file could not be read:");
                 Console.WriteLine(e.Message);
             }
-            context.SaveChanges();
         }
     }
 }
