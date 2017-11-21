@@ -10,8 +10,8 @@ namespace ProvEventos.Models
     [Table("Administrador")]
     public class Administrador : Usuario
     {
-        [ForeignKey("UsuarioID"), Key]
-        [Column("UsuarioID", Order = 2, TypeName = "int")]
+        [Required]
+        [NotMapped]
         public virtual Usuario Usuario { get; set; }
     }
 }
