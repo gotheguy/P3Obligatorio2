@@ -16,7 +16,7 @@ namespace ProvEventos.Models
         public int TelefonoID { get; set; }
 
         [Required]
-        //[RegularExpression(@"^([0-9]{10})$", ErrorMessage = "Teléfono inválido")]
+        [RegularExpression(@"^([0-9]{9})$", ErrorMessage = "Teléfono inválido")]
         [Column("Numero", Order = 2, TypeName = "varchar")]
         public string Numero { get; set; }
 

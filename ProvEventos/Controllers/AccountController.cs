@@ -161,21 +161,20 @@ namespace ProvEventos.Controllers
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email, };
                 var result = await UserManager.CreateAsync(user, model.Clave);
 
-
                 var usuario = new Usuario()
                 {
                     NombreUsuario = model.Email,
                     Clave = model.Clave,
                     FechaRegistro = DateTime.Now,
-                    RolID = 2
+                    RolID = 2,
+                    //Organizador = new Organizador { NombreOrganizador = model.NombreOrganizador, Email = model.Email}
                 };
 
-                var organizador = new Organizador()
-                {
-                    NombreOrganizador = model.NombreOrganizador,
-                    Email = model.Email,
-                    
-                };
+                //var organizador = new Organizador()
+                //{
+                //    NombreOrganizador = model.NombreOrganizador,
+                //    Email = model.Email
+                //};
 
                 var telefono = new Telefono()
                 {
@@ -184,15 +183,15 @@ namespace ProvEventos.Controllers
 
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     db.Usuarios.Add(usuario);
-                    db.Organizadores.Add(organizador);
+                    //db.Organizadores.Add(usuario.Organizador);
                     db.Telefonos.Add(telefono);
                     db.SaveChanges();
 
                     return RedirectToAction("Index", "Home");
                 }
-               
+
                 AddErrors(result);
             }
 
