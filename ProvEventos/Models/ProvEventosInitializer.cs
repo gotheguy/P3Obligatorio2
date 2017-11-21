@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace ProvEventos.Models
 {
-    public class ProvEventosInitializer : DropCreateDatabaseIfModelChanges<ProvEventosContext>
+    public class ProvEventosInitializer : DropCreateDatabaseAlways<ProvEventosContext>
     {
         protected override void Seed(ProvEventosContext context)
         {
