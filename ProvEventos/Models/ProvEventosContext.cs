@@ -11,8 +11,6 @@ namespace ProvEventos.Models
     public class ProvEventosContext : DbContext
     {
         public DbSet<Proveedor> Proveedores { get; set; }
-        //public DbSet<Proveedor_VIP> ProveedoresVIP { get; set; }
-        //public DbSet<Proveedor_Comun> ProveedoresComun { get; set; }
         public DbSet<Servicio> Servicios { get; set; }
         public DbSet<Tipo_Evento> Eventos { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }

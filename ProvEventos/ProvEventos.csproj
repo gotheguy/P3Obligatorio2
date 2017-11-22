@@ -212,8 +212,6 @@
     <Compile Include="Models\Administrador.cs" />
     <Compile Include="Models\Organizador.cs" />
     <Compile Include="Models\Proveedor.cs" />
-    <Compile Include="Models\Proveedor_Comun.cs" />
-    <Compile Include="Models\Proveedor_VIP.cs" />
     <Compile Include="Models\ProvEventosContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />

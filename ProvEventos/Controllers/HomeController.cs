@@ -28,5 +28,42 @@ namespace ProvEventos.Controllers
 
             return View();
         }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(Usuario objUser)
+        {
+            if (ModelState.IsValid)
+            {
+                using (ProvEventosContext db = new ProvEventosContext())
+                {
+                    var obj = db.Usuarios.Where(a => a.NombreUsuario.Equals(objUser.NombreUsuario) && a.Clave.Equals(objUser.Clave)).FirstOrDefault();
+                    if (obj != null)
+                    {
+                        Session["UsuarioID"] = obj.UsuarioID.ToString();
+                        Session["NombreUsuario"] = obj.NombreUsuario.ToString();
+                        return RedirectToAction("UserDashBoard");
+                    }
+                }
+            }
+            return View(objUser);
+        }
+
+        public ActionResult UserDashBoard()
+        {
+            if (Session["UsuarioID"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+        }
     }
 }

@@ -10,9 +10,6 @@ namespace ProvEventos.Models
     [Table("Proveedor")]
     public class Proveedor : Usuario
     {   
-        [NotMapped]
-        public static double Arancel;
-
         [Required(ErrorMessage = "El RUT no puede estar vacío")]
         [Column("Rut", Order = 2, TypeName = "varchar")]
         public string Rut { get; set; }
@@ -28,8 +25,11 @@ namespace ProvEventos.Models
         [Column("Email", Order = 4, TypeName = "varchar")]
         public string Email { get; set; }
 
-        [Column("Activo", Order = 6, TypeName = "bit")]
+        [Column("Activo", Order = 5, TypeName = "bit")]
         public bool Activo { get; set; }
+
+        [Column("VIP", Order = 6, TypeName = "bit")]
+        public bool VIP { get; set; }
 
         [Required]
         [NotMapped]

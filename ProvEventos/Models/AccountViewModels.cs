@@ -63,7 +63,7 @@ namespace ProvEventos.Models
         MaxLength(12, ErrorMessage = "Largo máximo de la contraseña:12")]
         public string Clave { get; set; }
 
-        [Display(Name = "Recordarme")]
+        [Display(Name = "Recordarme?")]
         public bool RememberMe { get; set; }
     }
 
@@ -71,7 +71,7 @@ namespace ProvEventos.Models
     {
         [Required]
         [StringLength(100, ErrorMessage = "El nombre no puede ser mayor a 100 caracteres")]
-        [DisplayName("Organizador")]
+        [DisplayName("Nombre")]
         public string NombreOrganizador { get; set; }
 
         [Required]
@@ -83,6 +83,7 @@ namespace ProvEventos.Models
 
         [Required]
         [DataType(DataType.PhoneNumber)]
+        [DisplayName("Teléfono")]
         [RegularExpression(@"^([0-9]{9})$", ErrorMessage = "Teléfono inválido")]
         public string Numero { get; set; }
 

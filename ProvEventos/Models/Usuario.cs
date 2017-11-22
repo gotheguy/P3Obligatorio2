@@ -39,9 +39,6 @@ namespace ProvEventos.Models
 
         public virtual ICollection<Telefono> Telefonos { get; set; }
 
-        [NotMapped]
-        public virtual Organizador Organizador { get; set; }
-
         public int RolID { get; set; }
         public virtual Rol Rol { get; set; }
     }

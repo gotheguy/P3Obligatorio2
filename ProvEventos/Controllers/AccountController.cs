@@ -34,12 +34,6 @@ namespace ProvEventos.Controllers
             SignInManager = signInManager;
         }
 
-        public ActionResult Logoff()
-        {
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Index");
-        }
-
         public ApplicationSignInManager SignInManager
         {
             get
@@ -97,7 +91,7 @@ namespace ProvEventos.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ModelState.AddModelError("", "Datos inválidos");
                     return View(model);
             }
         }
@@ -161,14 +155,11 @@ namespace ProvEventos.Controllers
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email, };
                 var result = await UserManager.CreateAsync(user, model.Clave);
 
-                //var usuario = new Usuario()
-                //{
-                //    NombreUsuario = model.Email,
-                //    Clave = model.Clave,
-                //    FechaRegistro = DateTime.Now,
-                //    RolID = 2,
-                //    //Organizador = new Organizador { NombreOrganizador = model.NombreOrganizador, Email = model.Email}
-                //};
+                var telefono = new Telefono()
+                {
+                    Numero = model.Numero
+                };
+                db.Telefonos.Add(telefono);
 
                 var organizador = new Organizador()
                 {
@@ -179,18 +170,12 @@ namespace ProvEventos.Controllers
                     NombreOrganizador = model.NombreOrganizador,
                     Email = model.Email
                 };
-
-                var telefono = new Telefono()
-                {
-                    Numero = model.Numero
-                };
+                db.Organizadores.Add(organizador);
 
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                    //db.Usuarios.Add(usuario);
-                    db.Organizadores.Add(organizador);
-                    db.Telefonos.Add(telefono);
+                 
                     db.SaveChanges();
 
                     return RedirectToAction("Index", "Home");

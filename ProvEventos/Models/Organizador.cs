@@ -25,8 +25,5 @@ namespace ProvEventos.Models
         [Column("Email", Order = 3, TypeName = "varchar")]
         public string Email { get; set; }
 
-        [Required]
-        [NotMapped]
-        public virtual Usuario Usuario { get; set; }
     }
 }
