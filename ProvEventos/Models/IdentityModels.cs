@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -17,6 +18,7 @@ namespace ProvEventos.Models
             return userIdentity;
         }
     }
+
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {

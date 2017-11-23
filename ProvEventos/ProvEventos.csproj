@@ -201,6 +201,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ListadosController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrganizadorController.cs" />
     <Compile Include="Controllers\ServicioController.cs" />
@@ -299,6 +300,8 @@
     <Content Include="Views\Organizador\Details.cshtml" />
     <Content Include="Views\Organizador\Edit.cshtml" />
     <Content Include="Views\Organizador\Index.cshtml" />
+    <Content Include="Views\Listados\Index.cshtml" />
+    <Content Include="Views\Listados\Organizadores.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -6,6 +6,8 @@ using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.IO;
 using System.Linq;
+using System.Web;
+using Microsoft.Owin;
 
 namespace ProvEventos.Models
 {
@@ -23,7 +25,7 @@ namespace ProvEventos.Models
             roles.ForEach(s => context.Roles.Add(s));
             context.SaveChanges();
 
-            if (!context.Roles.Any(r => r.Roles == Roles.Administrador))
+            /*if (!context.Roles.Any(r => r.Roles == Roles.Administrador))
             {
                 var store = new RoleStore<IdentityRole>(context);
                 var manager = new RoleManager<IdentityRole>(store);
@@ -32,7 +34,7 @@ namespace ProvEventos.Models
                 manager.Create(role);
 
             }
-
+            
             if (!context.Roles.Any(r => r.Roles == Roles.Organizador))
             {
                 var store = new RoleStore<IdentityRole>(context);
@@ -49,8 +51,7 @@ namespace ProvEventos.Models
                 var role = new IdentityRole { Name = "Proveedor" };
 
                 manager.Create(role);
-            }
-
+            }*/
 
             var usuarios = new List<Usuario>
             {
@@ -103,10 +104,7 @@ namespace ProvEventos.Models
             //    throw;
             //}
 
-
-
-
-
+            
             try
             {   // Open the text file using a stream reader.
                 List<Servicio> servicios = new List<Servicio>();

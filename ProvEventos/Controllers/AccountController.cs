@@ -12,6 +12,7 @@ using ProvEventos.Models;
 using System.Collections.Generic;
 using System.Web.Security;
 using System.Data.Entity.Validation;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace ProvEventos.Controllers
 {
@@ -152,9 +153,8 @@ namespace ProvEventos.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, PhoneNumber = model.Numero, };
                 var result = await UserManager.CreateAsync(user, model.Clave);
-
                 var telefono = new Telefono()
                 {
                     Numero = model.Numero
@@ -175,7 +175,7 @@ namespace ProvEventos.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                 
+
                     db.SaveChanges();
 
                     return RedirectToAction("Index", "Home");
