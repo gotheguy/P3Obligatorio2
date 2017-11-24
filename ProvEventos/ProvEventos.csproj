@@ -306,6 +306,7 @@
     <Content Include="Views\Listados\Index.cshtml" />
     <Content Include="Views\Listados\Organizadores.cshtml" />
     <Content Include="Views\Evento\Create.cshtml" />
+    <Content Include="Views\Shared\Forbidden.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

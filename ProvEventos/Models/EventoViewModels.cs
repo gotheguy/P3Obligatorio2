@@ -34,5 +34,7 @@ namespace ProvEventos.Models
         public virtual List<Servicio> Servicios { get; set; }
 
         public IEnumerable<SelectListItem> TiposDeEvento { get; set; }
+        //public IEnumerable<SelectListItem> ServiciosList { get; set; }
+        public List<Proveedor> ProveedoresGridview { get; set; }
     }
 }

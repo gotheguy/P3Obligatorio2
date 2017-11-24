@@ -108,6 +108,7 @@ namespace ProvEventos.Models
             try
             {   // Open the text file using a stream reader.
                 List<Servicio> servicios = new List<Servicio>();
+                Dictionary<String, Tipo_Evento> eventos = new Dictionary<string, Tipo_Evento>();
                 string serviceFile = AppDomain.CurrentDomain.BaseDirectory + @"\App_data\FileServicios.txt";
                 string providerFile = AppDomain.CurrentDomain.BaseDirectory + @"\App_data\FileProveedores.txt";
                 using (StreamReader sr = new StreamReader(serviceFile))
@@ -127,8 +128,12 @@ namespace ProvEventos.Models
                         {
                             foreach (string tipo in dataTipo)
                             {
-                                Tipo_Evento tEvento = new Tipo_Evento() { NombreTipoEvento = tipo };
-                                s.TipoEvento.Add(tEvento);
+                                if (!eventos.ContainsKey(tipo))
+                                {
+                                    Tipo_Evento tEvento = new Tipo_Evento() { NombreTipoEvento = tipo };
+                                    eventos.Add(tipo, tEvento);
+                                }
+                                s.TipoEvento.Add(eventos[tipo]);
                             }
                         }
                         servicios.Add(s);
