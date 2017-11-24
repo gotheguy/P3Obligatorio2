@@ -25,7 +25,10 @@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("Listados", "Listados", "Listados/Index")</li>
-                   
+                    @if (this.User.Identity.Name != null && this.User.Identity.Name != "")
+                    {
+                        <li>@Html.ActionLink("Agregar evento", "Evento", "Evento/Create")</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

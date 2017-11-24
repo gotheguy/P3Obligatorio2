@@ -22,7 +22,6 @@ namespace ProvEventos.Controllers
             if (nombreUsuario != null && nombreUsuario != "")
             {
                 Usuario usu = db.Usuarios.AsEnumerable().FirstOrDefault(u => u.NombreUsuario == nombreUsuario);
-                Roles a = usu.Rol.Roles;
                 if (usu.Rol.Roles == Roles.Administrador)
                 {
                     IEnumerable<ProvEventos.Models.Organizador> organizadores;
