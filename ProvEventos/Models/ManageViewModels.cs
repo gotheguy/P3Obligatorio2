@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using System.ComponentModel;
 
 namespace ProvEventos.Models
 {
@@ -62,20 +63,22 @@ namespace ProvEventos.Models
     {
         [Required]
         [Phone]
-        [Display(Name = "Phone Number")]
-        public string Number { get; set; }
+        [DataType(DataType.PhoneNumber)]
+        [DisplayName("Teléfono")]
+        [RegularExpression(@"^([0-9]{9})$", ErrorMessage = "Teléfono inválido")]
+        [Display(Name = "Teléfono")]
+        public string Telefono { get; set; }
     }
 
     public class VerifyPhoneNumberViewModel
     {
         [Required]
-        [Display(Name = "Code")]
-        public string Code { get; set; }
-
-        [Required]
         [Phone]
-        [Display(Name = "Phone Number")]
-        public string PhoneNumber { get; set; }
+        [DataType(DataType.PhoneNumber)]
+        [DisplayName("Teléfono")]
+        [RegularExpression(@"^([0-9]{9})$", ErrorMessage = "Teléfono inválido")]
+        [Display(Name = "Teléfono")]
+        public string Telefono { get; set; }
     }
 
     public class ConfigureTwoFactorViewModel

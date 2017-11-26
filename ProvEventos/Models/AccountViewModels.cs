@@ -85,7 +85,7 @@ namespace ProvEventos.Models
         [DataType(DataType.PhoneNumber)]
         [DisplayName("Teléfono")]
         [RegularExpression(@"^([0-9]{9})$", ErrorMessage = "Teléfono inválido")]
-        public string Numero { get; set; }
+        public string Telefono { get; set; }
 
         [Required(ErrorMessage = "La contraseña no puede estar vacía")]
         [DataType(DataType.Password)]

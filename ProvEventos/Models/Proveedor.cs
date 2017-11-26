@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
 
 namespace ProvEventos.Models
 {
@@ -25,10 +26,17 @@ namespace ProvEventos.Models
         [Column("Email", Order = 4, TypeName = "varchar")]
         public string Email { get; set; }
 
-        [Column("Activo", Order = 5, TypeName = "bit")]
+        [Required]
+        [DataType(DataType.PhoneNumber)]
+        [DisplayName("Teléfono")]
+        [RegularExpression(@"^([0-9]{9})$", ErrorMessage = "Teléfono inválido")]
+        [Column("Telefono", Order = 5, TypeName = "varchar")]
+        public string Telefono { get; set; }
+
+        [Column("Activo", Order = 6, TypeName = "bit")]
         public bool Activo { get; set; }
 
-        [Column("VIP", Order = 6, TypeName = "bit")]
+        [Column("VIP", Order = 7, TypeName = "bit")]
         public bool VIP { get; set; }
 
         [Required]
