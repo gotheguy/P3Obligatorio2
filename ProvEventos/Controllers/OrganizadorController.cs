@@ -56,7 +56,7 @@ namespace ProvEventos.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.UsuarioID = new SelectList(db.Usuarios, "UsuarioID", "NombreUsuario", organizador.UsuarioID);
+            ViewBag.UsuarioID = new SelectList(db.Usuarios, "UsuarioID", "NombreUsuario", organizador.Id);
             return View(organizador);
         }
 
@@ -72,7 +72,7 @@ namespace ProvEventos.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.UsuarioID = new SelectList(db.Usuarios, "UsuarioID", "NombreUsuario", organizador.UsuarioID);
+            ViewBag.UsuarioID = new SelectList(db.Usuarios, "UsuarioID", "NombreUsuario", organizador.Id);
             return View(organizador);
         }
 
@@ -89,7 +89,7 @@ namespace ProvEventos.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.UsuarioID = new SelectList(db.Usuarios, "UsuarioID", "NombreUsuario", organizador.UsuarioID);
+            ViewBag.UsuarioID = new SelectList(db.Usuarios, "UsuarioID", "NombreUsuario", organizador.Id);
             return View(organizador);
         }
 

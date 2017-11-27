@@ -13,7 +13,7 @@ namespace ProvEventos.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201711260534525_initcreate"; }
+            get { return "201711270421366_initcreate"; }
         }
         
         string IMigrationMetadata.Source

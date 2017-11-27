@@ -10,8 +10,5 @@ namespace ProvEventos.Models
     [Table("Administrador")]
     public class Administrador : Usuario
     {
-        [Required]
-        [NotMapped]
-        public virtual Usuario Usuario { get; set; }
     }
 }

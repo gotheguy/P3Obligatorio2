@@ -8,57 +8,50 @@ namespace ProvEventos.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.Usuario",
+                "dbo.AspNetUsers",
                 c => new
                     {
-                        Email = c.String(maxLength: 100, unicode: false),
-                        UsuarioID = c.Int(nullable: false, identity: true),
-                        NombreUsuario = c.String(nullable: false, maxLength: 50),
-                        Clave = c.String(nullable: false, maxLength: 12),
-                        FechaRegistro = c.DateTime(nullable: false),
-                        RolID = c.Int(nullable: false),
-                        //EmailConfirmed = c.Boolean(nullable: false),
+                        Id = c.String(nullable: false, maxLength: 128),
+                        Email = c.String(),
+                        EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
-                        //SecurityStamp = c.String(),
-                        //PhoneNumber = c.String(),
-                        //PhoneNumberConfirmed = c.Boolean(nullable: false),
-                        //TwoFactorEnabled = c.Boolean(nullable: false),
-                        //LockoutEndDateUtc = c.DateTime(),
-                        //LockoutEnabled = c.Boolean(nullable: false),
-                        //AccessFailedCount = c.Int(nullable: false),
-                        Id = c.String(),
+                        SecurityStamp = c.String(),
+                        PhoneNumber = c.String(),
+                        PhoneNumberConfirmed = c.Boolean(nullable: false),
+                        TwoFactorEnabled = c.Boolean(nullable: false),
+                        LockoutEndDateUtc = c.DateTime(),
+                        LockoutEnabled = c.Boolean(nullable: false),
+                        AccessFailedCount = c.Int(nullable: false),
                         UserName = c.String(),
                     })
-                .PrimaryKey(t => t.UsuarioID)
-                .ForeignKey("dbo.Rol", t => t.RolID, cascadeDelete: true)
-                .Index(t => t.RolID);
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.IdentityUserClaim",
+                "dbo.AspNetUserClaims",
                 c => new
                     {
-                        Id = c.Int(nullable: false, identity: true),
-                        UserId = c.String(),
+                        UserId = c.String(nullable: false, maxLength: 128),
+                        Id = c.Int(nullable: false),
                         ClaimType = c.String(),
                         ClaimValue = c.String(),
-                        Usuario_UsuarioID = c.Int(),
+                        ApplicationUser_Id = c.String(maxLength: 128),
                     })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Usuario", t => t.Usuario_UsuarioID)
-                .Index(t => t.Usuario_UsuarioID);
+                .PrimaryKey(t => t.UserId)
+                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
+                .Index(t => t.ApplicationUser_Id);
             
             CreateTable(
-                "dbo.IdentityUserLogin",
+                "dbo.AspNetUserLogins",
                 c => new
                     {
                         UserId = c.String(nullable: false, maxLength: 128),
                         LoginProvider = c.String(),
                         ProviderKey = c.String(),
-                        Usuario_UsuarioID = c.Int(),
+                        ApplicationUser_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.UserId)
-                .ForeignKey("dbo.Usuario", t => t.Usuario_UsuarioID)
-                .Index(t => t.Usuario_UsuarioID);
+                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
+                .Index(t => t.ApplicationUser_Id);
             
             CreateTable(
                 "dbo.Rol",
@@ -70,19 +63,19 @@ namespace ProvEventos.Migrations
                 .PrimaryKey(t => t.RolID);
             
             CreateTable(
-                "dbo.IdentityUserRole",
+                "dbo.AspNetUserRoles",
                 c => new
                     {
                         RoleId = c.String(nullable: false, maxLength: 128),
                         UserId = c.String(nullable: false, maxLength: 128),
-                        Usuario_UsuarioID = c.Int(),
                         IdentityRole_Id = c.String(maxLength: 128),
+                        ApplicationUser_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => new { t.RoleId, t.UserId })
-                .ForeignKey("dbo.Usuario", t => t.Usuario_UsuarioID)
-                .ForeignKey("dbo.IdentityRole", t => t.IdentityRole_Id)
-                .Index(t => t.Usuario_UsuarioID)
-                .Index(t => t.IdentityRole_Id);
+                .ForeignKey("dbo.AspNetRoles", t => t.IdentityRole_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
+                .Index(t => t.IdentityRole_Id)
+                .Index(t => t.ApplicationUser_Id);
             
             CreateTable(
                 "dbo.Evento",
@@ -122,7 +115,7 @@ namespace ProvEventos.Migrations
                 .PrimaryKey(t => t.TipoEventoID);
             
             CreateTable(
-                "dbo.IdentityRole",
+                "dbo.AspNetRoles",
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
@@ -134,13 +127,13 @@ namespace ProvEventos.Migrations
                 "dbo.ProveedorServicio",
                 c => new
                     {
-                        Proveedor_UsuarioID = c.Int(nullable: false),
+                        Proveedor_Id = c.String(nullable: false, maxLength: 128),
                         Servicio_ServicioID = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => new { t.Proveedor_UsuarioID, t.Servicio_ServicioID })
-                .ForeignKey("dbo.Proveedor", t => t.Proveedor_UsuarioID, cascadeDelete: true)
+                .PrimaryKey(t => new { t.Proveedor_Id, t.Servicio_ServicioID })
+                .ForeignKey("dbo.Proveedor", t => t.Proveedor_Id, cascadeDelete: true)
                 .ForeignKey("dbo.Servicio", t => t.Servicio_ServicioID, cascadeDelete: true)
-                .Index(t => t.Proveedor_UsuarioID)
+                .Index(t => t.Proveedor_Id)
                 .Index(t => t.Servicio_ServicioID);
             
             CreateTable(
@@ -157,14 +150,28 @@ namespace ProvEventos.Migrations
                 .Index(t => t.Servicio_ServicioID);
             
             CreateTable(
+                "dbo.Usuario",
+                c => new
+                    {
+                        Id = c.String(nullable: false, maxLength: 128),
+                        FechaRegistro = c.DateTime(nullable: false),
+                        RolID = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.Id)
+                .ForeignKey("dbo.Rol", t => t.RolID, cascadeDelete: true)
+                .Index(t => t.Id)
+                .Index(t => t.RolID);
+            
+            CreateTable(
                 "dbo.Administrador",
                 c => new
                     {
-                        UsuarioID = c.Int(nullable: false),
+                        Id = c.String(nullable: false, maxLength: 128),
                     })
-                .PrimaryKey(t => t.UsuarioID)
-                .ForeignKey("dbo.Usuario", t => t.UsuarioID)
-                .Index(t => t.UsuarioID);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Usuario", t => t.Id)
+                .Index(t => t.Id);
             
             CreateTable(
                 "dbo.Organizador",
@@ -172,11 +179,11 @@ namespace ProvEventos.Migrations
                     {
                         NombreOrganizador = c.String(nullable: false, maxLength: 100, unicode: false),
                         Telefono = c.String(nullable: false, maxLength: 8000, unicode: false),
-                        UsuarioID = c.Int(nullable: false),
+                        Id = c.String(nullable: false, maxLength: 128),
                     })
-                .PrimaryKey(t => t.UsuarioID)
-                .ForeignKey("dbo.Usuario", t => t.UsuarioID)
-                .Index(t => t.UsuarioID);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Usuario", t => t.Id)
+                .Index(t => t.Id);
             
             CreateTable(
                 "dbo.Proveedor",
@@ -187,58 +194,61 @@ namespace ProvEventos.Migrations
                         Telefono = c.String(nullable: false, maxLength: 8000, unicode: false),
                         Activo = c.Boolean(nullable: false),
                         VIP = c.Boolean(nullable: false),
-                        UsuarioID = c.Int(nullable: false),
+                        Id = c.String(nullable: false, maxLength: 128),
                     })
-                .PrimaryKey(t => t.UsuarioID)
-                .ForeignKey("dbo.Usuario", t => t.UsuarioID)
-                .Index(t => t.UsuarioID);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Usuario", t => t.Id)
+                .Index(t => t.Id);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.Proveedor", "UsuarioID", "dbo.Usuario");
-            DropForeignKey("dbo.Organizador", "UsuarioID", "dbo.Usuario");
-            DropForeignKey("dbo.Administrador", "UsuarioID", "dbo.Usuario");
-            DropForeignKey("dbo.IdentityUserRole", "IdentityRole_Id", "dbo.IdentityRole");
-            DropForeignKey("dbo.IdentityUserRole", "Usuario_UsuarioID", "dbo.Usuario");
+            DropForeignKey("dbo.Proveedor", "Id", "dbo.Usuario");
+            DropForeignKey("dbo.Organizador", "Id", "dbo.Usuario");
+            DropForeignKey("dbo.Administrador", "Id", "dbo.Usuario");
             DropForeignKey("dbo.Usuario", "RolID", "dbo.Rol");
-            DropForeignKey("dbo.IdentityUserLogin", "Usuario_UsuarioID", "dbo.Usuario");
-            DropForeignKey("dbo.IdentityUserClaim", "Usuario_UsuarioID", "dbo.Usuario");
+            DropForeignKey("dbo.Usuario", "Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserRoles", "ApplicationUser_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserLogins", "ApplicationUser_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserClaims", "ApplicationUser_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserRoles", "IdentityRole_Id", "dbo.AspNetRoles");
             DropForeignKey("dbo.Evento", "Tipo_TipoEventoID", "dbo.Tipo_Evento");
             DropForeignKey("dbo.Servicio", "Evento_EventoID", "dbo.Evento");
             DropForeignKey("dbo.Tipo_EventoServicio", "Servicio_ServicioID", "dbo.Servicio");
             DropForeignKey("dbo.Tipo_EventoServicio", "Tipo_Evento_TipoEventoID", "dbo.Tipo_Evento");
             DropForeignKey("dbo.ProveedorServicio", "Servicio_ServicioID", "dbo.Servicio");
-            DropForeignKey("dbo.ProveedorServicio", "Proveedor_UsuarioID", "dbo.Proveedor");
-            DropIndex("dbo.Proveedor", new[] { "UsuarioID" });
-            DropIndex("dbo.Organizador", new[] { "UsuarioID" });
-            DropIndex("dbo.Administrador", new[] { "UsuarioID" });
+            DropForeignKey("dbo.ProveedorServicio", "Proveedor_Id", "dbo.Proveedor");
+            DropIndex("dbo.Proveedor", new[] { "Id" });
+            DropIndex("dbo.Organizador", new[] { "Id" });
+            DropIndex("dbo.Administrador", new[] { "Id" });
+            DropIndex("dbo.Usuario", new[] { "RolID" });
+            DropIndex("dbo.Usuario", new[] { "Id" });
             DropIndex("dbo.Tipo_EventoServicio", new[] { "Servicio_ServicioID" });
             DropIndex("dbo.Tipo_EventoServicio", new[] { "Tipo_Evento_TipoEventoID" });
             DropIndex("dbo.ProveedorServicio", new[] { "Servicio_ServicioID" });
-            DropIndex("dbo.ProveedorServicio", new[] { "Proveedor_UsuarioID" });
+            DropIndex("dbo.ProveedorServicio", new[] { "Proveedor_Id" });
             DropIndex("dbo.Servicio", new[] { "Evento_EventoID" });
             DropIndex("dbo.Evento", new[] { "Tipo_TipoEventoID" });
-            DropIndex("dbo.IdentityUserRole", new[] { "IdentityRole_Id" });
-            DropIndex("dbo.IdentityUserRole", new[] { "Usuario_UsuarioID" });
-            DropIndex("dbo.IdentityUserLogin", new[] { "Usuario_UsuarioID" });
-            DropIndex("dbo.IdentityUserClaim", new[] { "Usuario_UsuarioID" });
-            DropIndex("dbo.Usuario", new[] { "RolID" });
+            DropIndex("dbo.AspNetUserRoles", new[] { "ApplicationUser_Id" });
+            DropIndex("dbo.AspNetUserRoles", new[] { "IdentityRole_Id" });
+            DropIndex("dbo.AspNetUserLogins", new[] { "ApplicationUser_Id" });
+            DropIndex("dbo.AspNetUserClaims", new[] { "ApplicationUser_Id" });
             DropTable("dbo.Proveedor");
             DropTable("dbo.Organizador");
             DropTable("dbo.Administrador");
+            DropTable("dbo.Usuario");
             DropTable("dbo.Tipo_EventoServicio");
             DropTable("dbo.ProveedorServicio");
-            DropTable("dbo.IdentityRole");
+            DropTable("dbo.AspNetRoles");
             DropTable("dbo.Tipo_Evento");
             DropTable("dbo.Servicio");
             DropTable("dbo.Evento");
-            DropTable("dbo.IdentityUserRole");
+            DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.Rol");
-            DropTable("dbo.IdentityUserLogin");
-            DropTable("dbo.IdentityUserClaim");
-            DropTable("dbo.Usuario");
+            DropTable("dbo.AspNetUserLogins");
+            DropTable("dbo.AspNetUserClaims");
+            DropTable("dbo.AspNetUsers");
         }
     }
 }

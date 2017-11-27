@@ -7,6 +7,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using System.Data.Entity;
 using ProvEventos.Models;
+using ProvEventos.Migrations;
 
 namespace ProvEventos
 {
@@ -18,7 +19,10 @@ namespace ProvEventos
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            Database.SetInitializer(new ProvEventosInitializer());
+            //Database.SetInitializer(new ProvEventosInitializer());
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ProvEventosContext, Configuration>());
+            var db = new ProvEventosContext();
+            db.Database.Initialize(true);
         }
     }
 }

@@ -183,7 +183,7 @@ namespace ProvEventos.Controllers
             }
             var result = await UserManager.SetPhoneNumberAsync(User.Identity.GetUserId(), model.Telefono);
 
-            var organizador = db.Organizadores.SingleOrDefault(o => o.NombreUsuario == User.Identity.Name);
+            var organizador = db.Organizadores.SingleOrDefault(o => o.UserName == User.Identity.Name);
            
             organizador.Telefono = model.Telefono;
 

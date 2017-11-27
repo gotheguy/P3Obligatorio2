@@ -28,10 +28,11 @@ namespace ProvEventos.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-            modelBuilder.Entity<IdentityUserLogin>().HasKey<string>(l => l.UserId);
-            modelBuilder.Entity<IdentityRole>().HasKey<string>(r => r.Id);
-            modelBuilder.Entity<IdentityUserRole>().HasKey(r => new { r.RoleId, r.UserId });
-            modelBuilder.Entity<ApplicationUser>().ToTable("User‌​s");
+            modelBuilder.Entity<IdentityUserLogin>().ToTable("AspNetUserLogins").HasKey<string>(l => l.UserId);
+            modelBuilder.Entity<IdentityRole>().ToTable("AspNetRoles").HasKey<string>(r => r.Id);
+            modelBuilder.Entity<IdentityUserRole>().ToTable("AspNetUserRoles").HasKey(r => new { r.RoleId, r.UserId });
+            modelBuilder.Entity<IdentityUserClaim>().ToTable("AspNetUserClaims").HasKey<string>(l => l.UserId);
+            modelBuilder.Entity<ApplicationUser>().ToTable("AspNetUsers");
         }
     }
 }

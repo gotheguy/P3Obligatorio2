@@ -17,18 +17,11 @@ namespace ProvEventos.Models
         [Column("NombreOrganizador", Order = 2, TypeName = "varchar")]
         public string NombreOrganizador { get; set; }
 
-        [StringLength(100, ErrorMessage = "El email no puede ser mayor a 100 caracteres")]
-        [DataType(DataType.EmailAddress)]
-        [DisplayName("Email")]
-        [EmailAddress]
-        [Column("Email", Order = 3, TypeName = "varchar")]
-        public string Email { get; set; }
-
         [Required]
         [DataType(DataType.PhoneNumber)]
         [DisplayName("Teléfono")]
         [RegularExpression(@"^([0-9]{9})$", ErrorMessage = "Teléfono inválido")]
-        [Column("Telefono", Order = 4, TypeName = "varchar")]
+        [Column("Telefono", Order = 3, TypeName = "varchar")]
         public string Telefono { get; set; }
     }
 }

@@ -28,11 +28,11 @@ namespace ProvEventos.Controllers
             {
                 using (ProvEventosContext db = new ProvEventosContext())
                 {
-                    var obj = db.Usuarios.Where(a => a.NombreUsuario.Equals(objUser.NombreUsuario) && a.Clave.Equals(objUser.Clave)).FirstOrDefault();
+                    var obj = db.Usuarios.Where(a => a.UserName.Equals(objUser.UserName) && a.PasswordHash.Equals(objUser.PasswordHash)).FirstOrDefault();
                     if (obj != null)
                     {
-                        Session["UsuarioID"] = obj.UsuarioID.ToString();
-                        Session["NombreUsuario"] = obj.NombreUsuario.ToString();
+                        Session["Id"] = obj.Id.ToString();
+                        Session["UserName"] = obj.UserName.ToString();
                         return RedirectToAction("UserDashBoard");
                     }
                 }
@@ -42,7 +42,7 @@ namespace ProvEventos.Controllers
 
         public ActionResult UserDashBoard()
         {
-            if (Session["UsuarioID"] != null)
+            if (Session["Id"] != null)
             {
                 return View();
             }
