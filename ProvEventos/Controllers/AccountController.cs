@@ -153,23 +153,25 @@ namespace ProvEventos.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 var hasher = new PasswordHasher();
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email, PasswordHash = hasher.HashPassword(model.Clave) };
                 var result = await UserManager.CreateAsync(user, model.Clave);
-               
-                var organizador = new Organizador()
-                {
-                    UserName = model.Email,
-                    PasswordHash = hasher.HashPassword(model.Clave),
-                    Email = model.Email,
-                    PhoneNumber = model.Telefono,
-                    SecurityStamp = Guid.NewGuid().ToString(),
-                    FechaRegistro = DateTime.Now,
-                    RolID = 2,
-                    NombreOrganizador = model.NombreOrganizador,
-                    Telefono = model.Telefono
-                };
-                db.Organizadores.Add(organizador);
+
+
+                    var organizador = new Organizador()
+                    {
+                        UserName = model.Email,
+                        PasswordHash = hasher.HashPassword(model.Clave),
+                        Email = model.Email,
+                        PhoneNumber = model.Telefono,
+                        SecurityStamp = Guid.NewGuid().ToString(),
+                        FechaRegistro = DateTime.Now,
+                        RolID = 2,
+                        NombreOrganizador = model.NombreOrganizador,
+                        Telefono = model.Telefono
+                    };
+                    db.Organizadores.Add(organizador);
 
                 if (result.Succeeded)
                 {

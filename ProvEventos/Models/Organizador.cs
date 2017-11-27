@@ -13,7 +13,7 @@ namespace ProvEventos.Models
     {
         [Required]
         [StringLength(100, ErrorMessage = "El nombre no puede ser mayor a 100 caracteres")]
-        [DisplayName("Organizador")]
+        [DisplayName("Nombre")]
         [Column("NombreOrganizador", Order = 2, TypeName = "varchar")]
         public string NombreOrganizador { get; set; }
 
