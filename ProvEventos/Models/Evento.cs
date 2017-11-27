@@ -17,19 +17,19 @@ namespace ProvEventos.Models
         public int EventoID { get; set; }
 
         [Required]
-        public virtual Tipo_Evento Tipo { get; set; }
-
-        [Required]
         [DataType(DataType.Date)]
         [DisplayName("Fecha de evento")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [Column("FechaEvento", Order = 4, TypeName = "date")]
+        [DisplayFormat(DataFormatString = "{0: MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+        [Column("FechaEvento", Order = 3, TypeName = "date")]
         public DateTime FechaEvento { get; set; }
 
         [Required(ErrorMessage = "Ingrese una direccion")]
         [StringLength(100, ErrorMessage = "La direccion debe tener menos de 100 caracteres")]
         [Column("Direccion", Order = 2, TypeName = "varchar")]
         public String Direccion { get; set; }
+
+        public int TipoEventoID { get; set; }
+        public virtual Tipo_Evento TipoEvento { get; set; }
 
         public virtual List<Servicio> Servicios { get; set; }
 

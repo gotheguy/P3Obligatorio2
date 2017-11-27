@@ -33,5 +33,7 @@ namespace ProvEventos.Models
         public virtual ICollection<Proveedor> Proveedores { get; set; }
 
         public virtual ICollection<Tipo_Evento> TipoEvento { get; set; }
+
+        public virtual ICollection<Evento> Eventos { get; set; }
     }
 }

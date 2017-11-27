@@ -12,7 +12,7 @@ namespace ProvEventos.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
-                        Email = c.String(),
+                        Email = c.String(nullable: false),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
                         SecurityStamp = c.String(),
@@ -177,9 +177,9 @@ namespace ProvEventos.Migrations
                 "dbo.Organizador",
                 c => new
                     {
+                        Id = c.String(nullable: false, maxLength: 128),
                         NombreOrganizador = c.String(nullable: false, maxLength: 100, unicode: false),
                         Telefono = c.String(nullable: false, maxLength: 8000, unicode: false),
-                        Id = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Usuario", t => t.Id)
@@ -189,17 +189,16 @@ namespace ProvEventos.Migrations
                 "dbo.Proveedor",
                 c => new
                     {
+                        Id = c.String(nullable: false, maxLength: 128),
                         Rut = c.String(nullable: false, maxLength: 8000, unicode: false),
                         NombreFantasia = c.String(nullable: false, maxLength: 100, unicode: false),
                         Telefono = c.String(nullable: false, maxLength: 8000, unicode: false),
                         Activo = c.Boolean(nullable: false),
                         VIP = c.Boolean(nullable: false),
-                        Id = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Usuario", t => t.Id)
                 .Index(t => t.Id);
-            
         }
         
         public override void Down()

@@ -25,5 +25,7 @@ namespace ProvEventos.Models
         public string Descripcion { get; set; }
 
         public virtual ICollection<Servicio> Servicios { get; set; }
+
+        public virtual ICollection<Evento> Eventos { get; set; }
     }
 }

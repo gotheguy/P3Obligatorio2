@@ -20,14 +20,14 @@ namespace ProvEventos.Migrations
 
         protected override void Seed(ProvEventos.Models.ProvEventosContext context)
         {
+            var hasher = new PasswordHasher();
+
             context.Roles.AddOrUpdate(
                 p => p.RolID,
                 new Rol { RolID = 1, Roles = Roles.Administrador },
                 new Rol { RolID = 2, Roles = Roles.Organizador },
                 new Rol { RolID = 3, Roles = Roles.Proveedor }
                 );
-
-            var hasher = new PasswordHasher();
 
             context.Organizadores.AddOrUpdate(
                 p => p.UserName,
@@ -48,7 +48,6 @@ namespace ProvEventos.Migrations
                 new Administrador { UserName = "fmoreno@gmail.com", PasswordHash = hasher.HashPassword("ZZzz.2013"), Email = "fmoreno@hotmail.com", PhoneNumber = "095669215", SecurityStamp = Guid.NewGuid().ToString(), FechaRegistro = DateTime.Now, RolID = 1 },
                 new Administrador { UserName = "edu093@gmail.com", PasswordHash = hasher.HashPassword("HHhh.2015"), Email = "edu093@gmail.com", PhoneNumber = "099639865", SecurityStamp = Guid.NewGuid().ToString(), FechaRegistro = DateTime.Now, RolID = 1 }
                 );
-
 
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
             
@@ -78,93 +77,106 @@ namespace ProvEventos.Migrations
             UserManager.Create(user);
 
 
+            try
+            {   
+            List<Servicio> servicios = new List<Servicio>();
+            string serviceFile = AppDomain.CurrentDomain.BaseDirectory + @"\App_data\FileServicios.txt";
+            string providerFile = AppDomain.CurrentDomain.BaseDirectory + @"\App_data\FileProveedores.txt";
+            using (StreamReader sr = new StreamReader(serviceFile))
+            {
+                string line = "";
+                while ((line = sr.ReadLine()) != null)
+                {
+                    List<string> data = line.Split('#').ToList();
+                    Servicio s = new Servicio()
+                    {
+                        NombreServicio = data[0]
+                    };
+                    if (s.TipoEvento == null) s.TipoEvento = new List<Tipo_Evento>();
+                    string datosTipo = data[1];
+                    List<string> dataTipo = datosTipo.Split(':').ToList();
+                    if (datosTipo.Length != 0)
+                    {
+                        foreach (string tipo in dataTipo)
+                        {
+                            context.Tipo_Eventos.AddOrUpdate(p => p.NombreTipoEvento, new Tipo_Evento { NombreTipoEvento = tipo });
+                        }
+                    }
+                    context.Servicios.AddOrUpdate(p => p.NombreServicio, s);
+                }
+                sr.Close();
+            }
 
-            //try
-            //{   // Open the text file using a stream reader.
-            //    List<Servicio> servicios = new List<Servicio>();
-            //    string serviceFile = AppDomain.CurrentDomain.BaseDirectory + @"\App_data\FileServicios.txt";
-            //    string providerFile = AppDomain.CurrentDomain.BaseDirectory + @"\App_data\FileProveedores.txt";
-            //    using (StreamReader sr = new StreamReader(serviceFile))
-            //    {
-            //        string line = "";
-            //        while ((line = sr.ReadLine()) != null)
-            //        {
-            //            List<string> data = line.Split('#').ToList();
-            //            Servicio s = new Servicio()
-            //            {
-            //                NombreServicio = data[0]
-            //            };
-            //            if (s.TipoEvento == null) s.TipoEvento = new List<Tipo_Evento>();
-            //            string datosTipo = data[1];
-            //            List<string> dataTipo = datosTipo.Split(':').ToList();
-            //            if (datosTipo.Length != 0)
-            //            {
-            //                foreach (string tipo in dataTipo)
-            //                {
-            //                    Tipo_Evento tEvento = new Tipo_Evento() { NombreTipoEvento = tipo };
-            //                    s.TipoEvento.Add(tEvento);
-            //                }
-            //            }
-            //            servicios.Add(s);
-            //        }
-            //        sr.Close();
-            //    }
+                List<Proveedor> proveedores = new List<Proveedor>();
+                using (StreamReader sr = new StreamReader(providerFile))
+                {
+                    string line = "";
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        List<string> data = line.Split('#').ToList();
+                        Proveedor p = new Proveedor()
+                        {
+                            UserName = data[2],
+                            PasswordHash = hasher.HashPassword("Pass1234!"),
+                            Email = data[2],
+                            PhoneNumber = data[3],
+                            SecurityStamp = Guid.NewGuid().ToString(),
+                            FechaRegistro = DateTime.Now,
+                            RolID = 3,
+                            Rut = data[0],
+                            NombreFantasia = data[1],
+                            Telefono = data[3],
+                            Activo = true,
+                            VIP = true
+                        };
+                        context.Proveedores.AddOrUpdate(o => o.UserName, p);
+                        user = new ApplicationUser { UserName = data[2], Email = data[2], PasswordHash = hasher.HashPassword("Pass1234!") };
+                        UserManager.Create(user);
 
-            //    servicios.ForEach(ser => context.Servicios.Add(ser));
-            //    context.SaveChanges();
+                        if (p.Servicios == null) p.Servicios = new List<Servicio>();
+                        List<string> serv = data.Where((item, index) => index > 3).ToList();
+                        foreach (string s in serv)
+                        {
+                            string[] dataServ = s.Split(':');
+                            Servicio servicio = context.Servicios.AsEnumerable().FirstOrDefault(c => c.NombreServicio == dataServ[0]);
+                            servicio.Descripcion = dataServ[1];
+                            servicio.Imagen = dataServ[2] != "No hay imagen disponible" ? dataServ[2] : "No hay imagen disponible";
+                            context.Servicios.AddOrUpdate(o => o.NombreServicio,servicio);
+                        }
+                    }
+                    sr.Close();
+                }
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        Console.WriteLine("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(e.Message);
+            }
 
-            ////    List<Proveedor> proveedores = new List<Proveedor>();
-            ////    using (StreamReader sr = new StreamReader(providerFile))
-            ////    {
-            ////        string line = "";
-            ////        while ((line = sr.ReadLine()) != null)
-            ////        {
-            ////            List<string> data = line.Split('#').ToList();
-            ////            Proveedor p = new Proveedor()
-            ////            {
-            ////                UserName = data[2],
-            ////                PasswordHash = hasher.HashPassword("Pass1234!"),
-            ////                Email = data[2],
-            ////                FechaRegistro = DateTime.Now,
-            ////                RolID = 3,
-            ////                Rut = data[0],
-            ////                NombreFantasia = data[1],
-            ////                Telefono = data[3],
-            ////                Activo = true,
-            ////                VIP = true
-            ////            };
-            ////            if (p.Servicios == null) p.Servicios = new List<Servicio>();
-            ////            List<string> serv = data.Where((item, index) => index > 3).ToList();
-            ////            foreach (string s in serv)
-            ////            {
-            ////                string[] dataServ = s.Split(':');
-            ////                Servicio servicio = context.Servicios.AsEnumerable().FirstOrDefault(c => c.NombreServicio == dataServ[0]);
-            ////                servicio.Descripcion = dataServ[1];
-            ////                servicio.Imagen = dataServ[2] != "No hay imagen disponible" ? dataServ[2] : "";
-            ////                p.Servicios.Add(servicio);
-            ////            }
-            ////            proveedores.Add(p);
-            ////        }
-            ////        sr.Close();
-            ////    }
-            ////    proveedores.ForEach(p => context.Proveedores.Add(p));
-            ////    context.SaveChanges();
-            //}
-            //catch (DbEntityValidationException dbEx)
-            //{
-            //    foreach (var validationErrors in dbEx.EntityValidationErrors)
-            //    {
-            //        foreach (var validationError in validationErrors.ValidationErrors)
-            //        {
-            //            Console.WriteLine("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
-            //        }
-            //    }
-            //}
-            //catch (Exception e)
-            //{
-            //    Console.WriteLine("The file could not be read:");
-            //    Console.WriteLine(e.Message);
-            //}
+            context.Eventos.AddOrUpdate(
+            p => p.EventoID,
+            new Evento { Direccion = "Rivera 2944", FechaEvento = DateTime.Now.AddDays(7), TipoEventoID = 3 },
+            new Evento { Direccion = "Gonzalo Ramirez 3555", FechaEvento = DateTime.Now.AddDays(16), TipoEventoID = 1 },
+            new Evento { Direccion = "Ejido 3412", FechaEvento = DateTime.Now.AddDays(22), TipoEventoID = 1 },
+            new Evento { Direccion = "Canelones 1220", FechaEvento = DateTime.Now.AddDays(2), TipoEventoID = 4 },
+            new Evento { Direccion = "18 de Julio 1550", FechaEvento = DateTime.Now.AddDays(4), TipoEventoID = 4 },
+            new Evento { Direccion = "Mercedes 5959", FechaEvento = DateTime.Now.AddDays(17), TipoEventoID = 3 },
+            new Evento { Direccion = "Rivera 3400", FechaEvento = DateTime.Now.AddDays(30), TipoEventoID = 7 },
+            new Evento { Direccion = "Av. Italia 3540", FechaEvento = DateTime.Now.AddDays(1), TipoEventoID = 5 },
+            new Evento { Direccion = "Sarandi 6600", FechaEvento = DateTime.Now.AddDays(5), TipoEventoID = 1 },
+            new Evento { Direccion = "Blvar. Artigas 8540", FechaEvento = DateTime.Now.AddDays(12), TipoEventoID = 8 },
+            new Evento { Direccion = "Jaime Cibils 1230", FechaEvento = DateTime.Now.AddDays(3), TipoEventoID = 2 }
+            );
         }
     }
 }

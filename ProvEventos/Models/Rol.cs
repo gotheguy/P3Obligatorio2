@@ -22,12 +22,6 @@ namespace ProvEventos.Models
         [Required]
         [Column("RolID", Order = 1, TypeName = "int")]
         public int RolID { get; set; }
-
-        //[Column("Rol", Order = 2)]
-        //public Roles? Roles { get; set; }
-
-        //public virtual ICollection<Usuario> Usuarios { get; set; }
-
             
         [Column("Rol", Order = 2)]
         public string RolString
