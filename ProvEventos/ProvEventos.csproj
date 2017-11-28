@@ -203,6 +203,7 @@
     <Compile Include="Controllers\EventoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ListadosController.cs" />
+    <Compile Include="Controllers\ListaEventosxFechaController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrganizadorController.cs" />
     <Compile Include="Controllers\ServicioController.cs" />
@@ -308,6 +309,8 @@
     <Content Include="Views\Listados\Index.cshtml" />
     <Content Include="Views\Listados\Organizadores.cshtml" />
     <Content Include="Views\Evento\Create.cshtml" />
+    <Content Include="Views\ListaEventosxFecha\Index.cshtml" />
+    <Content Include="Views\ListaEventosxFecha\Eventos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

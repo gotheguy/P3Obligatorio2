@@ -19,11 +19,12 @@ namespace ProvEventos.Models
         [Required]
         [DataType(DataType.Date)]
         [DisplayName("Fecha de evento")]
-        [DisplayFormat(DataFormatString = "{0: MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0: dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Column("FechaEvento", Order = 3, TypeName = "date")]
         public DateTime FechaEvento { get; set; }
 
         [Required(ErrorMessage = "Ingrese una direccion")]
+        [DisplayName("Dirección")]
         [StringLength(100, ErrorMessage = "La direccion debe tener menos de 100 caracteres")]
         [Column("Direccion", Order = 2, TypeName = "varchar")]
         public String Direccion { get; set; }

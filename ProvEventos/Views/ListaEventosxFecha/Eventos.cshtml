@@ -1,0 +1,51 @@
+﻿@model IEnumerable<ProvEventos.Models.Evento>
+
+@{
+    ViewBag.Title = "Eventos";
+}
+
+@using(Html.BeginForm("Eventos", "ListaEventosxFecha", FormMethod.Post, new { @class = "form-horizontal" }))
+{   
+    <br /><br />
+    @Html.Label("Desde: ")
+    @Html.TextBox("fechaini")
+    @Html.Label("Hasta: ")
+    @Html.TextBox("fechafin")
+    <input type="submit" value="Buscar" />
+}
+    
+<h2>Eventos</h2>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoEvento.NombreTipoEvento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaEvento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Direccion)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoEvento.NombreTipoEvento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaEvento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Direccion)
+                </td>
+            </tr>
+        }
+
+    </table>
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>

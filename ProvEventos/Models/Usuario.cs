@@ -14,7 +14,7 @@ namespace ProvEventos.Models
         [Required]
         [DataType(DataType.Date)]
         [DisplayName("Fecha de registro")]
-        [DisplayFormat(DataFormatString = "{0: MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0: dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Column("FechaRegistro", Order = 2, TypeName = "date")]
         public DateTime FechaRegistro { get; set; }
 

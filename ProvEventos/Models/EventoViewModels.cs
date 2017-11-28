@@ -22,7 +22,7 @@ namespace ProvEventos.Models
         [Required]
         [DataType(DataType.Date)]
         [DisplayName("Fecha de evento")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0: dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Column("FechaEvento", Order = 4, TypeName = "date")]
         public DateTime FechaEvento { get; set; }
 
