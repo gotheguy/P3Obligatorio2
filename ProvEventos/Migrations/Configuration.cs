@@ -49,6 +49,14 @@ namespace ProvEventos.Migrations
                 new Administrador { UserName = "edu093@gmail.com", PasswordHash = hasher.HashPassword("HHhh.2015"), Email = "edu093@gmail.com", PhoneNumber = "099639865", SecurityStamp = Guid.NewGuid().ToString(), FechaRegistro = DateTime.Now, RolID = 1 }
                 );
 
+            context.Proveedores.AddOrUpdate(
+                p => p.UserName,
+                new Proveedor() { UserName = "xmax@gmail.com", PasswordHash = hasher.HashPassword("EEee.2015"), Email = "xmax@gmail.com", PhoneNumber = "099998521", SecurityStamp = Guid.NewGuid().ToString(), FechaRegistro = DateTime.Now, RolID = 3, Rut = "R8998422", NombreFantasia = "XMAX CO", Telefono = "099998521", Activo = true, VIP = false},
+                new Proveedor() { UserName = "gleam@gmail.com", PasswordHash = hasher.HashPassword("GGgg.2017"), Email = "gleam@gmail.com", PhoneNumber = "098542789", SecurityStamp = Guid.NewGuid().ToString(), FechaRegistro = DateTime.Now, RolID = 3, Rut = "R5298474", NombreFantasia = "GLEAM", Telefono = "098542789", Activo = true, VIP = false },
+                new Proveedor() { UserName = "ucon@hotmail.com", PasswordHash = hasher.HashPassword("JJjj.2015"), Email = "ucon@gmail.com", PhoneNumber = "095698963", SecurityStamp = Guid.NewGuid().ToString(), FechaRegistro = DateTime.Now, RolID = 3, Rut = "R8984552", NombreFantasia = "UCON S.A", Telefono = "095698963", Activo = true, VIP = false },
+                new Proveedor() { UserName = "bloomberg@gmail.com", PasswordHash = hasher.HashPassword("LLll.2013"), Email = "bloomberg@gmail.com", PhoneNumber = "099259856", SecurityStamp = Guid.NewGuid().ToString(), FechaRegistro = DateTime.Now, RolID = 3, Rut = "R4984844", NombreFantasia = "BLOOMBERG'S", Telefono = "099259856", Activo = true, VIP = false }
+                );
+
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
             
             var user = new ApplicationUser { UserName = "cossav@hotmail.com", Email = "cossav@hotmail.com", PasswordHash = hasher.HashPassword("PPpp.2017") };
@@ -77,35 +85,53 @@ namespace ProvEventos.Migrations
             UserManager.Create(user);
 
 
+            user = new ApplicationUser { UserName = "xmax@gmail.com", Email = "xmax@gmail.com", PasswordHash = hasher.HashPassword("EEee.2015") };
+            UserManager.Create(user);
+            user = new ApplicationUser { UserName = "gleam@gmail.com", Email = "gleam@gmail.com", PasswordHash = hasher.HashPassword("GGgg.2017") };
+            UserManager.Create(user);
+            user = new ApplicationUser { UserName = "ucon@hotmail.com", Email = "ucon@hotmail.com", PasswordHash = hasher.HashPassword("JJjj.2015") };
+            UserManager.Create(user);
+            user = new ApplicationUser { UserName = "bloomberg@gmail.com", Email = "bloomberg@gmail.com", PasswordHash = hasher.HashPassword("LLll.2013") };
+            UserManager.Create(user);
+
+
             try
-            {   
-            List<Servicio> servicios = new List<Servicio>();
-            string serviceFile = AppDomain.CurrentDomain.BaseDirectory + @"\App_data\FileServicios.txt";
-            string providerFile = AppDomain.CurrentDomain.BaseDirectory + @"\App_data\FileProveedores.txt";
-            using (StreamReader sr = new StreamReader(serviceFile))
-            {
-                string line = "";
-                while ((line = sr.ReadLine()) != null)
+            {   // Open the text file using a stream reader.
+                List<Tipo_Evento> tipoEventos = new List<Tipo_Evento>();
+                List<Servicio> servicios = new List<Servicio>();
+                string serviceFile = AppDomain.CurrentDomain.BaseDirectory + @"\App_data\FileServicios.txt";
+                string providerFile = AppDomain.CurrentDomain.BaseDirectory + @"\App_data\FileProveedores.txt";
+                using (StreamReader sr = new StreamReader(serviceFile))
                 {
-                    List<string> data = line.Split('#').ToList();
-                    Servicio s = new Servicio()
+                    string line = "";
+                    while ((line = sr.ReadLine()) != null)
                     {
-                        NombreServicio = data[0]
-                    };
-                    if (s.TipoEvento == null) s.TipoEvento = new List<Tipo_Evento>();
-                    string datosTipo = data[1];
-                    List<string> dataTipo = datosTipo.Split(':').ToList();
-                    if (datosTipo.Length != 0)
-                    {
-                        foreach (string tipo in dataTipo)
+                        List<string> data = line.Split('#').ToList();
+                        Servicio s = new Servicio()
                         {
-                            context.Tipo_Eventos.AddOrUpdate(p => p.NombreTipoEvento, new Tipo_Evento { NombreTipoEvento = tipo });
+                            NombreServicio = data[0]
+                        };
+                        if (s.TipoEvento == null) s.TipoEvento = new List<Tipo_Evento>();
+                        string datosTipo = data[1];
+                        List<string> dataTipo = datosTipo.Split(':').ToList();
+                        if (datosTipo.Length != 0)
+                        {
+                            foreach (string tipo in dataTipo)
+                            {
+                                Tipo_Evento tEvento = new Tipo_Evento() { NombreTipoEvento = tipo };
+                                //Tipo_Evento tEvento = context.Tipo_Eventos.AsEnumerable().FirstOrDefault(c => c.NombreTipoEvento == tipo);
+
+                                s.TipoEvento.Add(tEvento);
+                                //context.Tipo_Eventos.AddOrUpdate(
+                                //p => p.NombreTipoEvento, tEvento);
+                            }
                         }
+                        servicios.Add(s);
                     }
-                    context.Servicios.AddOrUpdate(p => p.NombreServicio, s);
+                    sr.Close();
                 }
-                sr.Close();
-            }
+                servicios.ForEach(ser => context.Servicios.AddOrUpdate(o => o.NombreServicio, ser));
+                context.SaveChanges();
 
                 List<Proveedor> proveedores = new List<Proveedor>();
                 using (StreamReader sr = new StreamReader(providerFile))
@@ -129,10 +155,6 @@ namespace ProvEventos.Migrations
                             Activo = true,
                             VIP = true
                         };
-                        context.Proveedores.AddOrUpdate(o => o.UserName, p);
-                        user = new ApplicationUser { UserName = data[2], Email = data[2], PasswordHash = hasher.HashPassword("Pass1234!") };
-                        UserManager.Create(user);
-
                         if (p.Servicios == null) p.Servicios = new List<Servicio>();
                         List<string> serv = data.Where((item, index) => index > 3).ToList();
                         foreach (string s in serv)
@@ -141,11 +163,14 @@ namespace ProvEventos.Migrations
                             Servicio servicio = context.Servicios.AsEnumerable().FirstOrDefault(c => c.NombreServicio == dataServ[0]);
                             servicio.Descripcion = dataServ[1];
                             servicio.Imagen = dataServ[2] != "No hay imagen disponible" ? dataServ[2] : "No hay imagen disponible";
-                            context.Servicios.AddOrUpdate(o => o.NombreServicio,servicio);
+                            p.Servicios.Add(servicio);
                         }
+                        proveedores.Add(p);
                     }
                     sr.Close();
                 }
+                proveedores.ForEach(p => context.Proveedores.AddOrUpdate(o => o.UserName, p));
+                context.SaveChanges();
             }
             catch (DbEntityValidationException dbEx)
             {
@@ -164,7 +189,7 @@ namespace ProvEventos.Migrations
             }
 
             context.Eventos.AddOrUpdate(
-            p => p.EventoID,
+            p => p.Direccion,
             new Evento { Direccion = "Rivera 2944", FechaEvento = DateTime.Now.AddDays(7), TipoEventoID = 3 },
             new Evento { Direccion = "Gonzalo Ramirez 3555", FechaEvento = DateTime.Now.AddDays(16), TipoEventoID = 1 },
             new Evento { Direccion = "Ejido 3412", FechaEvento = DateTime.Now.AddDays(22), TipoEventoID = 1 },
