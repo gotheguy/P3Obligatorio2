@@ -51,11 +51,12 @@ namespace ProvEventos.Migrations
 
             context.Proveedores.AddOrUpdate(
                 p => p.UserName,
-                new Proveedor() { UserName = "xmax@gmail.com", PasswordHash = hasher.HashPassword("EEee.2015"), Email = "xmax@gmail.com", PhoneNumber = "099998521", SecurityStamp = Guid.NewGuid().ToString(), FechaRegistro = DateTime.Now, RolID = 3, Rut = "R8998422", NombreFantasia = "XMAX CO", Telefono = "099998521", Activo = true, VIP = false},
+                new Proveedor() { UserName = "xmax@gmail.com", PasswordHash = hasher.HashPassword("EEee.2015"), Email = "xmax@gmail.com", PhoneNumber = "099998521", SecurityStamp = Guid.NewGuid().ToString(), FechaRegistro = DateTime.Now, RolID = 3, Rut = "R8998422", NombreFantasia = "XMAX CO", Telefono = "099998521", Activo = true, VIP = false },
                 new Proveedor() { UserName = "gleam@gmail.com", PasswordHash = hasher.HashPassword("GGgg.2017"), Email = "gleam@gmail.com", PhoneNumber = "098542789", SecurityStamp = Guid.NewGuid().ToString(), FechaRegistro = DateTime.Now, RolID = 3, Rut = "R5298474", NombreFantasia = "GLEAM", Telefono = "098542789", Activo = true, VIP = false },
                 new Proveedor() { UserName = "ucon@hotmail.com", PasswordHash = hasher.HashPassword("JJjj.2015"), Email = "ucon@gmail.com", PhoneNumber = "095698963", SecurityStamp = Guid.NewGuid().ToString(), FechaRegistro = DateTime.Now, RolID = 3, Rut = "R8984552", NombreFantasia = "UCON S.A", Telefono = "095698963", Activo = true, VIP = false },
                 new Proveedor() { UserName = "bloomberg@gmail.com", PasswordHash = hasher.HashPassword("LLll.2013"), Email = "bloomberg@gmail.com", PhoneNumber = "099259856", SecurityStamp = Guid.NewGuid().ToString(), FechaRegistro = DateTime.Now, RolID = 3, Rut = "R4984844", NombreFantasia = "BLOOMBERG'S", Telefono = "099259856", Activo = true, VIP = false }
                 );
+
 
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
             
@@ -91,7 +92,6 @@ namespace ProvEventos.Migrations
             UserManager.Create(user);
             user = new ApplicationUser { UserName = "bloomberg@gmail.com", Email = "bloomberg@gmail.com", PasswordHash = hasher.HashPassword("LLll.2013") };
             UserManager.Create(user);
-
 
             try
             {   // Open the text file using a stream reader.
@@ -187,7 +187,7 @@ namespace ProvEventos.Migrations
             }
 
             context.Eventos.AddOrUpdate(
-            p => p.Direccion,
+            p => p.Direccion, 
             new Evento { Direccion = "Rivera 2944", FechaEvento = DateTime.Now.AddDays(7), TipoEventoID = 3 },
             new Evento { Direccion = "Gonzalo Ramirez 3555", FechaEvento = DateTime.Now.AddDays(16), TipoEventoID = 1 },
             new Evento { Direccion = "Ejido 3412", FechaEvento = DateTime.Now.AddDays(22), TipoEventoID = 1 },

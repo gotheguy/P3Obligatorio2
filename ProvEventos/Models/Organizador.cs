@@ -24,6 +24,11 @@ namespace ProvEventos.Models
         [Column("Telefono", Order = 3, TypeName = "varchar")]
         public string Telefono { get; set; }
 
-        public List<Evento> EventosOrganizados { get; set; }
+        public ICollection<Evento> Eventos { get; set; }
+
+        //public static implicit operator Organizador(string v)
+        //{
+        //    return new Organizador().Id;
+        //}
     }
 }

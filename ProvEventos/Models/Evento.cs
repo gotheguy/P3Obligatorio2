@@ -36,7 +36,6 @@ namespace ProvEventos.Models
 
         public virtual List<Proveedor> Proveedores { get; set; }
 
-        public int OrganizadorId { get; set; }
         public virtual Organizador Organizador { get; set; }
     }
 }
