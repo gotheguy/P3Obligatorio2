@@ -22,12 +22,13 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Lista de Organizadores", "Listados", "Listados/Index")</li>
                     
                     @if (this.User.Identity.Name != null && this.User.Identity.Name != "")
                     {
+                        <li>@Html.ActionLink("Lista de Organizadores", "Listados", "Listados/Index")</li>
                         <li>@Html.ActionLink("Lista de Eventos", "ListaEventosxFecha", "ListaEventosxFecha/Index")</li>
                         <li>@Html.ActionLink("Agregar evento", "Evento", "Evento/Create")</li>
+                        <li>@Html.ActionLink("Calificar Proveedor", "Listados", "Listados/Create")</li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")
