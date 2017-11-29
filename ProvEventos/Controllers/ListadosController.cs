@@ -47,16 +47,45 @@ namespace ProvEventos.Controllers
             {
                 Usuario usu = db.Usuarios.AsEnumerable().FirstOrDefault(u => u.UserName == nombreUsuario);
 
-                var eventos = from p in db.Eventos
+                var eventos = default(object);
+                var organizadores = default(object);
+
+                if (usu.Rol.Roles == Roles.Administrador)
+                {
+                    organizadores = from p in db.Organizadores
+                                    select p;
+                    return View("Organizadores",organizadores);
+
+                }
+                else
+                {
+                    eventos = from p in db.Eventos
                               where p.Organizador.Id == usu.Id
                               select p;
-
-                return View(eventos);
+                    return View(eventos);
+                }
             }
             else
             {
                 return View("Forbidden");
             }
+        }
+
+        public ActionResult Details(string id)
+        {
+            String nombreUsuario = this.User.Identity.Name;
+
+            var eventos = default(object);
+
+            if (nombreUsuario != null && nombreUsuario != "")
+            {
+                Usuario usu = db.Usuarios.AsEnumerable().FirstOrDefault(u => u.UserName == nombreUsuario);
+
+                eventos =   from p in db.Eventos
+                            where p.Organizador.Id == id
+                            select p;
+            }
+            return View("Eventos",eventos);
         }
     }
 }

@@ -209,8 +209,6 @@
     <Compile Include="Controllers\ListadosController.cs" />
     <Compile Include="Controllers\ListaEventosxFechaController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\OrganizadorController.cs" />
-    <Compile Include="Controllers\ServicioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -229,7 +227,6 @@
     <Compile Include="Models\ProvEventosContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\ProvEventosInitializer.cs" />
     <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\Servicio.cs" />
     <Compile Include="Models\ServicioProveedor.cs" />
@@ -320,6 +317,7 @@
     <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
     <Content Include="Views\Evento\ServicioProveedorView.cshtml" />
     <Content Include="Views\Listados\Eventos.cshtml" />
+    <Content Include="Views\Listados\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

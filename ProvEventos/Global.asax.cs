@@ -19,7 +19,6 @@ namespace ProvEventos
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            //Database.SetInitializer(new ProvEventosInitializer());
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<ProvEventosContext, Configuration>());
             var db = new ProvEventosContext();
             db.Database.Initialize(true);

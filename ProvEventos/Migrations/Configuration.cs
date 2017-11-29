@@ -130,12 +130,15 @@ namespace ProvEventos.Migrations
                 servicios.ForEach(ser => context.Servicios.AddOrUpdate(o => o.NombreServicio, ser));
                 context.SaveChanges();
 
+
                 List<Proveedor> proveedores = new List<Proveedor>();
                 using (StreamReader sr = new StreamReader(providerFile))
                 {
                     string line = "";
                     while ((line = sr.ReadLine()) != null)
                     {
+                        Random r = new Random();
+
                         List<string> data = line.Split('#').ToList();
                         Proveedor p = new Proveedor()
                         {
@@ -185,24 +188,21 @@ namespace ProvEventos.Migrations
                 Console.WriteLine(e.Message);
             }
 
-            context.Eventos.AddOrUpdate(
-            p => p.Direccion,
-            new Evento { Direccion = "Rivera 2944", FechaEvento = DateTime.Now.AddDays(7), TipoEventoID = 3, Id = "0c5fbe79-f138-43fb-9936-a4946ee867a2" },
-            new Evento { Direccion = "Gonzalo Ramirez 3555", FechaEvento = DateTime.Now.AddDays(16), TipoEventoID = 1, Id = "2ab99597-f28e-44f0-b1b7-8950a67142ea" },
-            new Evento { Direccion = "Ejido 3412", FechaEvento = DateTime.Now.AddDays(22), TipoEventoID = 1, Id = "1364c100-8693-414e-8394-549bccdc04bb" },
-            new Evento { Direccion = "Canelones 1220", FechaEvento = DateTime.Now.AddDays(2), TipoEventoID = 4, Id = "2ab99597-f28e-44f0-b1b7-8950a67142ea" },
-            new Evento { Direccion = "18 de Julio 1550", FechaEvento = DateTime.Now.AddDays(4), TipoEventoID = 4, Id = "952063ee-a1c0-4db9-9923-bc769cfe62b8" },
-            new Evento { Direccion = "Mercedes 5959", FechaEvento = DateTime.Now.AddDays(17), TipoEventoID = 3, Id = "952063ee-a1c0-4db9-9923-bc769cfe62b8" },
-            new Evento { Direccion = "Rivera 3400", FechaEvento = DateTime.Now.AddDays(30), TipoEventoID = 7, Id = "ffa839d2-dc8d-4ec1-b8d7-822818fa10cb" },
-            new Evento { Direccion = "Av. Italia 3540", FechaEvento = DateTime.Now.AddDays(1), TipoEventoID = 5, Id = "7b299e65-84db-4eb2-aa4c-fa8377c9c04d" },
-            new Evento { Direccion = "Sarandi 6600", FechaEvento = DateTime.Now.AddDays(5), TipoEventoID = 1, Id = "7b299e65-84db-4eb2-aa4c-fa8377c9c04d" },
-            new Evento { Direccion = "Blvar. Artigas 8540", FechaEvento = DateTime.Now.AddDays(12), TipoEventoID = 8, Id = "ffa839d2-dc8d-4ec1-b8d7-822818fa10cb" },
-            new Evento { Direccion = "Jaime Cibils 1230", FechaEvento = DateTime.Now.AddDays(3), TipoEventoID = 2, Id = "ffa839d2-dc8d-4ec1-b8d7-822818fa10cb" }
-            );
 
-            //context.Calificaciones.AddOrUpdate(
-            //new Calificacion { Estrellas = 5, Comentario = "Muy bueno",}
-            //);
+            context.Eventos.AddOrUpdate(
+                p => p.Direccion,
+                new Evento { Direccion = "Rivera 2944", FechaEvento = DateTime.Now.AddDays(7), TipoEventoID = 3, Id = "0b14d77d-d7b9-4cfe-b18c-ec6b7f013aa5" },
+                new Evento { Direccion = "Gonzalo Ramirez 3555", FechaEvento = DateTime.Now.AddDays(16), TipoEventoID = 1, Id = "c2f107fc-182f-486a-a0ae-cf457b6298f7" },
+                new Evento { Direccion = "Ejido 3412", FechaEvento = DateTime.Now.AddDays(22), TipoEventoID = 1, Id = "cafce288-08e0-4ee4-9b05-b0d76e3f4629" },
+                new Evento { Direccion = "Canelones 1220", FechaEvento = DateTime.Now.AddDays(2), TipoEventoID = 4, Id = "cafce288-08e0-4ee4-9b05-b0d76e3f4629" },
+                new Evento { Direccion = "18 de Julio 1550", FechaEvento = DateTime.Now.AddDays(4), TipoEventoID = 4, Id = "0b14d77d-d7b9-4cfe-b18c-ec6b7f013aa5" },
+                new Evento { Direccion = "Mercedes 5959", FechaEvento = DateTime.Now.AddDays(17), TipoEventoID = 3, Id = "0b14d77d-d7b9-4cfe-b18c-ec6b7f013aa5" },
+                new Evento { Direccion = "Rivera 3400", FechaEvento = DateTime.Now.AddDays(30), TipoEventoID = 7, Id = "cafce288-08e0-4ee4-9b05-b0d76e3f4629" },
+                new Evento { Direccion = "Av. Italia 3540", FechaEvento = DateTime.Now.AddDays(1), TipoEventoID = 5, Id = "cafce288-08e0-4ee4-9b05-b0d76e3f4629" },
+                new Evento { Direccion = "Sarandi 6600", FechaEvento = DateTime.Now.AddDays(5), TipoEventoID = 1, Id = "ddb080e2-aadf-45bc-b91c-ce008e1aa581" },
+                new Evento { Direccion = "Blvar. Artigas 8540", FechaEvento = DateTime.Now.AddDays(12), TipoEventoID = 8, Id = "11af3b83-9584-419c-86b8-ed1cb14e118a" },
+                new Evento { Direccion = "Jaime Cibils 1230", FechaEvento = DateTime.Now.AddDays(3), TipoEventoID = 2, Id = "11af3b83-9584-419c-86b8-ed1cb14e118a" }
+                );
         }
     }
 }
