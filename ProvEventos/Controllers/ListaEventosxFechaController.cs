@@ -54,21 +54,31 @@ namespace ProvEventos.Controllers
                 {
                     var eventos = default(object);
 
-                    if (fechaini == "" && fechafin == "")
+                    DateTime dI;
+                    DateTime dF;
+                    bool tryParseDI = DateTime.TryParse(fechaini, out dI);
+                    bool tryParseDF = DateTime.TryParse(fechafin, out dF);
+                    if (!tryParseDI && !tryParseDF)
                     {
                         eventos = from p in db.Eventos
                                   select p;
                     }
-                    else if(fechaini != "" && fechafin == "")
+                    else if (tryParseDI && !tryParseDF)
                     {
                         eventos = from p in db.Eventos
-                                  //where p.FechaEvento >= f1
+                                  where p.FechaEvento >= dI
                                   select p;
                     }
-                    else if (fechaini == "" && fechafin != "")
+                    else if (tryParseDI && tryParseDF)
                     {
                         eventos = from p in db.Eventos
-                                      //where p.FechaEvento >= f1
+                                  where p.FechaEvento >= dI && p.FechaEvento <= dF
+                                  select p;
+                    }
+                    else if (!tryParseDI && tryParseDF)
+                    {
+                        eventos = from p in db.Eventos
+                                  where p.FechaEvento <= dF
                                   select p;
                     }
                     return View(eventos);

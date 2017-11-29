@@ -187,17 +187,17 @@ namespace ProvEventos.Migrations
 
             context.Eventos.AddOrUpdate(
             p => p.Direccion,
-            new Evento { Direccion = "Rivera 2944", FechaEvento = DateTime.Now.AddDays(7), TipoEventoID = 3, Id = "0c5fbe79-f138-43fb-9936-a4946ee867a2" }
-            //new Evento { Direccion = "Gonzalo Ramirez 3555", FechaEvento = DateTime.Now.AddDays(16), TipoEventoID = 1, Id = "3ec53c5b-4258-4d7c-a75f-2fc76077fc9b" },
-            //new Evento { Direccion = "Ejido 3412", FechaEvento = DateTime.Now.AddDays(22), TipoEventoID = 1, Id = "da3f4009-ac58-42b0-97a0-3d62b4882c90" },
-            //new Evento { Direccion = "Canelones 1220", FechaEvento = DateTime.Now.AddDays(2), TipoEventoID = 4, Id = "adb5edce-db41-410b-b02f-d444229e309e" },
-            //new Evento { Direccion = "18 de Julio 1550", FechaEvento = DateTime.Now.AddDays(4), TipoEventoID = 4, Id = "adb5edce-db41-410b-b02f-d444229e309e" },
-            //new Evento { Direccion = "Mercedes 5959", FechaEvento = DateTime.Now.AddDays(17), TipoEventoID = 3, Id = "10c0f239-ea2b-45b1-a4b3-915b9c62e6db" },
-            //new Evento { Direccion = "Rivera 3400", FechaEvento = DateTime.Now.AddDays(30), TipoEventoID = 7, Id = "9480599d-a95b-4756-b67b-f16442a7cfba" },
-            //new Evento { Direccion = "Av. Italia 3540", FechaEvento = DateTime.Now.AddDays(1), TipoEventoID = 5, Id = "10c0f239-ea2b-45b1-a4b3-915b9c62e6db" },
-            //new Evento { Direccion = "Sarandi 6600", FechaEvento = DateTime.Now.AddDays(5), TipoEventoID = 1, Id = "3ec53c5b-4258-4d7c-a75f-2fc76077fc9b" },
-            //new Evento { Direccion = "Blvar. Artigas 8540", FechaEvento = DateTime.Now.AddDays(12), TipoEventoID = 8, Id = "3ec53c5b-4258-4d7c-a75f-2fc76077fc9b" },
-            //new Evento { Direccion = "Jaime Cibils 1230", FechaEvento = DateTime.Now.AddDays(3), TipoEventoID = 2, Id = "9480599d-a95b-4756-b67b-f16442a7cfba" }
+            new Evento { Direccion = "Rivera 2944", FechaEvento = DateTime.Now.AddDays(7), TipoEventoID = 3, Id = "0c5fbe79-f138-43fb-9936-a4946ee867a2" },
+            new Evento { Direccion = "Gonzalo Ramirez 3555", FechaEvento = DateTime.Now.AddDays(16), TipoEventoID = 1, Id = "2ab99597-f28e-44f0-b1b7-8950a67142ea" },
+            new Evento { Direccion = "Ejido 3412", FechaEvento = DateTime.Now.AddDays(22), TipoEventoID = 1, Id = "1364c100-8693-414e-8394-549bccdc04bb" },
+            new Evento { Direccion = "Canelones 1220", FechaEvento = DateTime.Now.AddDays(2), TipoEventoID = 4, Id = "2ab99597-f28e-44f0-b1b7-8950a67142ea" },
+            new Evento { Direccion = "18 de Julio 1550", FechaEvento = DateTime.Now.AddDays(4), TipoEventoID = 4, Id = "952063ee-a1c0-4db9-9923-bc769cfe62b8" },
+            new Evento { Direccion = "Mercedes 5959", FechaEvento = DateTime.Now.AddDays(17), TipoEventoID = 3, Id = "952063ee-a1c0-4db9-9923-bc769cfe62b8" },
+            new Evento { Direccion = "Rivera 3400", FechaEvento = DateTime.Now.AddDays(30), TipoEventoID = 7, Id = "ffa839d2-dc8d-4ec1-b8d7-822818fa10cb" },
+            new Evento { Direccion = "Av. Italia 3540", FechaEvento = DateTime.Now.AddDays(1), TipoEventoID = 5, Id = "7b299e65-84db-4eb2-aa4c-fa8377c9c04d" },
+            new Evento { Direccion = "Sarandi 6600", FechaEvento = DateTime.Now.AddDays(5), TipoEventoID = 1, Id = "7b299e65-84db-4eb2-aa4c-fa8377c9c04d" },
+            new Evento { Direccion = "Blvar. Artigas 8540", FechaEvento = DateTime.Now.AddDays(12), TipoEventoID = 8, Id = "ffa839d2-dc8d-4ec1-b8d7-822818fa10cb" },
+            new Evento { Direccion = "Jaime Cibils 1230", FechaEvento = DateTime.Now.AddDays(3), TipoEventoID = 2, Id = "ffa839d2-dc8d-4ec1-b8d7-822818fa10cb" }
             );
 
             //context.Calificaciones.AddOrUpdate(
