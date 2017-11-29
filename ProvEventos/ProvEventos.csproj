@@ -316,12 +316,9 @@
     <Content Include="Views\ListaEventosxFecha\Index.cshtml" />
     <Content Include="Views\ListaEventosxFecha\Eventos.cshtml" />
     <Content Include="Views\Shared\Forbidden.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
     <Content Include="Views\Evento\ServicioProveedorView.cshtml" />
-=======
     <Content Include="Views\Listados\Calificacion.cshtml" />
->>>>>>> origin
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
