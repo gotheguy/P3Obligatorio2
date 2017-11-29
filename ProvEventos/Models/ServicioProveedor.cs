@@ -7,9 +7,7 @@ namespace ProvEventos.Models
 {
     public class ServicioProveedor
     {
-        public int IdServicio { get; set; }
-        public string NombreServicio { get; set; }
-        public string IdProveedor { get; set; }
-        public string NombreProveedor { get; set; }
+        public Servicio Servicio { get; set; }
+        public Proveedor Proveedor { get; set; }
     }
 }

@@ -16,6 +16,7 @@ namespace ProvEventos.Controllers
         // GET: Evento/Create
         public ActionResult Create()
         {
+            Session["ServiciosSeleccionados"] = null;
             String nombreUsuario = this.User.Identity.Name;
             if (nombreUsuario != null && nombreUsuario != "")
             {
@@ -76,34 +77,67 @@ namespace ProvEventos.Controllers
 
         // POST: Evento/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(EventoViewModels model)
         {
             try
             {
-                // TODO: Add insert logic here
+                db.Configuration.ProxyCreationEnabled = false;
+                Organizador usu = db.Organizadores.AsNoTracking().SingleOrDefault(u => u.UserName == this.User.Identity.Name);
+                model.ServiciosSeleccionados = (List<ServicioProveedor>)Session["ServiciosSeleccionados"];
+                //if (ModelState.IsValid && model.ServiciosSeleccionados == null)
+                var a = ModelState.IsValid;
+                if (model.ServiciosSeleccionados != null)
+                {
+                    List<Servicio> serviciosCargados = new List<Servicio>();
+                    List<Proveedor> proveedoresCargados = new List<Proveedor>();
+                    foreach (var e in model.ServiciosSeleccionados)
+                    {
+                        serviciosCargados.Add(e.Servicio);
+                        proveedoresCargados.Add(e.Proveedor);
+                    }
+                    Evento evento = new Evento
+                    {
+                        Direccion = model.Evento.Direccion,
+                        FechaEvento = model.Evento.FechaEvento,
+                        Proveedores = proveedoresCargados,
+                        Servicios = serviciosCargados,
+                        TipoEvento = model.Evento.TipoEvento
+                    };
+                    evento.Organizador = usu;
 
-                return RedirectToAction("Index");
+                    db.Eventos.Add(evento);
+                }
+
+                return View(model);
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                System.Console.WriteLine(e);
+                return View(model);
             }
         }
 
         // POST: Evento/Create
         [HttpGet]
-        public ActionResult AddService(int? serviceValue, string providerValue, string data)
+        public ActionResult AddService(int? serviceValue, string providerValue)
         {
             try
             {
                 if (serviceValue != null && providerValue != null)
                 {
+                    model.ServiciosSeleccionados = (List<ServicioProveedor>)Session["ServiciosSeleccionados"];
+                    if (model.ServiciosSeleccionados == null)
+                    {
+                        model.ServiciosSeleccionados = new List<ServicioProveedor>();
+                    }
                     Servicio servicio = db.Servicios.FirstOrDefault(s => s.ServicioID == serviceValue);
                     Proveedor proveedor = db.Proveedores.FirstOrDefault(s => s.Rut == providerValue);
-                    ServicioProveedor sp = new ServicioProveedor() {
-                        IdServicio = servicio.ServicioID, NombreServicio = servicio.NombreServicio, IdProveedor = proveedor.Rut, NombreProveedor = proveedor.NombreFantasia
-                    };
-                    model.ServiciosSeleccionados.Add(sp);
+                    if (model.ServiciosSeleccionados.FirstOrDefault(s => s.Servicio.ServicioID == servicio.ServicioID) == null)
+                    {
+                        ServicioProveedor sp = new ServicioProveedor() { Servicio = servicio, Proveedor = proveedor };
+                        model.ServiciosSeleccionados.Add(sp);
+                    }
+                    Session["ServiciosSeleccionados"] = model.ServiciosSeleccionados;
                     return PartialView("ServicioProveedorView", model);
                 }
                 return RedirectToAction("Index");
@@ -112,13 +146,6 @@ namespace ProvEventos.Controllers
             {
                 return View();
             }
-        }
-
-        [HttpGet]
-        public ActionResult GetServicioProveedor()
-        {
-            //var model = new EventoViewModels();
-            return PartialView("ServicioProveedor", model);
         }
     }
 }

@@ -2,7 +2,6 @@
 
 @{
     ViewBag.Title = "Create";
-    var val = Json.Encode(Model);
 }
 
 <h2>Agregar Evento</h2>
@@ -43,47 +42,14 @@
 
         <div class="form-group" id="OtherSpecifyFormGroup">
             @Html.LabelFor(model => model.Evento.Servicios, new { @class = "control-label col-md-2" })
-            @*@if (Model.ServiciosSeleccionados != null)
-            {
-                <div class="col-md-8 sbchanged">
-                    <table class="table">
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.ServiciosSeleccionados.Keys)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.ServiciosSeleccionados.Values)
-                            </th>
-                        </tr>
-                        @foreach (var item in Model.ServiciosSeleccionados)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Key.NombreServicio) - @Html.DisplayFor(modelItem => item.Key.Descripcion)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Value.NombreFantasia)
-                                </td>
-                            </tr>
-                        }
-                    </table>
-                </div>
-            }*@
-            @*@if (Model.ServiciosSeleccionados != null)
-            {
-                <div id="dvserviciosproveedores" class="col-md-8 sbchanged">
-                    //@{Html.RenderPartial("ServicioProveedorView", Model);}
-                </div>
-            }*@
-            <div id="dvserviciosproveedores" class="col-md-8 sbchanged"></div>
+            <div id="dvserviciosproveedores" class="col-md-8 sbchanged">
+            </div>
             <div class="col-md-8 sbchanged">
                 <select id="ddlServicio" name="ddlServicio" class="col-md-4 form-control" style="width: 200px"></select>&nbsp;&nbsp;
                 <select id="ddlProveedor" name="ddlProveedor" class="col-md-4 form-control" style="width: 200px; margin-left: 5px"></select>
             </div>
             <div class="col-md-2">
-
-                @*<button type="button" id="btnAdd" class="btn btn-default" hidden="hidden">Agregar Servicio</button>*@
-                <input id="AddService" name="AddService" type="button" value="Agregar Servicio" class="btn btn-default" hidden="hidden"/>
+                <input id="AddService" name="AddService" type="button" value="Agregar Servicio" class="btn btn-default"/>
             </div>
         </div>
 
@@ -105,6 +71,7 @@
             $("#OtherSpecifyFormGroup").hide();
             $("#typeSelector").on('change', function () {
                 var value = $("#typeSelector").value;
+                '<%Session["UserName"] = ' + null + '; %>';
                 if (value != "" || value != 0 || value != undefined) {
                     var str = this.options[this.selectedIndex].value;
                     $("#OtherSpecifyFormGroup").show();
@@ -159,10 +126,8 @@
                 var provider = $("#ddlProveedor option:selected").val();
                 $.get('@Url.Action("AddService", "Evento")', {
                     serviceValue: service,
-                    providerValue: provider,
-                    data: '{info:' + JSON.stringify(val) + '}' 
+                    providerValue: provider
                 }, function (result) {
-                    alert(result);
                     $("#dvserviciosproveedores").html(result);
                 })
             });
