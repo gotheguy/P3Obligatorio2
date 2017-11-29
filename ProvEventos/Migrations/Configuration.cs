@@ -189,23 +189,20 @@ namespace ProvEventos.Migrations
                 Console.WriteLine("The file could not be read:");
                 Console.WriteLine(e.Message);
             }
-
-            List<Servicio> servicioss = new List<Servicio>() { context.Servicios.AsEnumerable().FirstOrDefault(c => c.ServicioID == 0) };
-            List<Proveedor> proveedoress = new List<Proveedor>() { context.Proveedores.AsEnumerable().FirstOrDefault(c => c.Rut == "R0525223") };
-
+            
             context.Eventos.AddOrUpdate(
             p => p.Direccion,
-            new Evento { Direccion = "Rivera 2944", FechaEvento = DateTime.Now.AddDays(7), TipoEventoID = 3, Servicios = servicioss, Proveedores = proveedoress },
-            new Evento { Direccion = "Gonzalo Ramirez 3555", FechaEvento = DateTime.Now.AddDays(16), TipoEventoID = 1, Servicios = servicioss, Proveedores = proveedoress },
-            new Evento { Direccion = "Ejido 3412", FechaEvento = DateTime.Now.AddDays(22), TipoEventoID = 1, Servicios = servicioss, Proveedores = proveedoress },
-            new Evento { Direccion = "Canelones 1220", FechaEvento = DateTime.Now.AddDays(2), TipoEventoID = 4, Servicios = servicioss, Proveedores = proveedoress },
-            new Evento { Direccion = "18 de Julio 1550", FechaEvento = DateTime.Now.AddDays(4), TipoEventoID = 4, Servicios = servicioss, Proveedores = proveedoress },
-            new Evento { Direccion = "Mercedes 5959", FechaEvento = DateTime.Now.AddDays(17), TipoEventoID = 3, Servicios = servicioss, Proveedores = proveedoress },
-            new Evento { Direccion = "Rivera 3400", FechaEvento = DateTime.Now.AddDays(30), TipoEventoID = 7, Servicios = servicioss, Proveedores = proveedoress },
-            new Evento { Direccion = "Av. Italia 3540", FechaEvento = DateTime.Now.AddDays(1), TipoEventoID = 5, Servicios = servicioss, Proveedores = proveedoress },
-            new Evento { Direccion = "Sarandi 6600", FechaEvento = DateTime.Now.AddDays(5), TipoEventoID = 1, Servicios = servicioss, Proveedores = proveedoress },
-            new Evento { Direccion = "Blvar. Artigas 8540", FechaEvento = DateTime.Now.AddDays(12), TipoEventoID = 8, Servicios = servicioss, Proveedores = proveedoress },
-            new Evento { Direccion = "Jaime Cibils 1230", FechaEvento = DateTime.Now.AddDays(3), TipoEventoID = 2, Servicios = servicioss, Proveedores = proveedoress }
+            new Evento { Direccion = "Rivera 2944", FechaEvento = DateTime.Now.AddDays(7), TipoEventoID = 3},
+            new Evento { Direccion = "Gonzalo Ramirez 3555", FechaEvento = DateTime.Now.AddDays(16), TipoEventoID = 1},
+            new Evento { Direccion = "Ejido 3412", FechaEvento = DateTime.Now.AddDays(22), TipoEventoID = 1},
+            new Evento { Direccion = "Canelones 1220", FechaEvento = DateTime.Now.AddDays(2), TipoEventoID = 4},
+            new Evento { Direccion = "18 de Julio 1550", FechaEvento = DateTime.Now.AddDays(4), TipoEventoID = 4},
+            new Evento { Direccion = "Mercedes 5959", FechaEvento = DateTime.Now.AddDays(17), TipoEventoID = 3},
+            new Evento { Direccion = "Rivera 3400", FechaEvento = DateTime.Now.AddDays(30), TipoEventoID = 7},
+            new Evento { Direccion = "Av. Italia 3540", FechaEvento = DateTime.Now.AddDays(1), TipoEventoID = 5},
+            new Evento { Direccion = "Sarandi 6600", FechaEvento = DateTime.Now.AddDays(5), TipoEventoID = 1},
+            new Evento { Direccion = "Blvar. Artigas 8540", FechaEvento = DateTime.Now.AddDays(12), TipoEventoID = 8},
+            new Evento { Direccion = "Jaime Cibils 1230", FechaEvento = DateTime.Now.AddDays(3), TipoEventoID = 2}
             );
         }
     }
