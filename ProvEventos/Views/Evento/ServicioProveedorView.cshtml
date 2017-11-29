@@ -2,20 +2,20 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ServiciosSeleccionados.Keys)
+            @Html.DisplayNameFor(model => model.ServiciosSeleccionados)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ServiciosSeleccionados.Values)
+            @Html.DisplayNameFor(model => model.ServiciosSeleccionados)
         </th>
     </tr>
     @foreach (var item in Model.ServiciosSeleccionados)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Key.NombreServicio) - @Html.DisplayFor(modelItem => item.Key.Descripcion)
+                @Html.DisplayFor(modelItem => item.NombreServicio)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Value.NombreFantasia)
+                @Html.DisplayFor(modelItem => item.NombreProveedor)
             </td>
         </tr>
     }

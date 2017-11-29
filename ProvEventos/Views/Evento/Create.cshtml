@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Create";
+    var val = Json.Encode(Model);
 }
 
 <h2>Agregar Evento</h2>
@@ -68,9 +69,13 @@
                     </table>
                 </div>
             }*@
-            <div id="dvserviciosproveedores" class="col-md-8 sbchanged">
-                @{Html.RenderPartial("ServicioProveedor", Model);}
-            </div>
+            @*@if (Model.ServiciosSeleccionados != null)
+            {
+                <div id="dvserviciosproveedores" class="col-md-8 sbchanged">
+                    //@{Html.RenderPartial("ServicioProveedorView", Model);}
+                </div>
+            }*@
+            <div id="dvserviciosproveedores" class="col-md-8 sbchanged"></div>
             <div class="col-md-8 sbchanged">
                 <select id="ddlServicio" name="ddlServicio" class="col-md-4 form-control" style="width: 200px"></select>&nbsp;&nbsp;
                 <select id="ddlProveedor" name="ddlProveedor" class="col-md-4 form-control" style="width: 200px; margin-left: 5px"></select>
@@ -150,16 +155,15 @@
                 }
             });
             $("#AddService").on("click", function () {
-                var service = $("#ddlServicio").options[this.selectedIndex].value;
-                var provider = $("#ddlProveedor").options[this.selectedIndex].value;
-                alert(service);
-                alert(provider);
-                $.getJSON('@Url.Action("AgregarServicioProveedor", "ServicioProveedor")', {
+                var service = $("#ddlServicio option:selected").val();
+                var provider = $("#ddlProveedor option:selected").val();
+                $.get('@Url.Action("AddService", "Evento")', {
                     serviceValue: service,
-                    providerValue: provider
+                    providerValue: provider,
+                    data: '{info:' + JSON.stringify(val) + '}' 
                 }, function (result) {
-                    @*$("#dvserviciosproveedores").load('@(Url.Action("GetServicioProveedor", "Evento",null, Request.Url.Scheme))*@
-                    $("#dvserviciosproveedores").load(result);
+                    alert(result);
+                    $("#dvserviciosproveedores").html(result);
                 })
             });
         })

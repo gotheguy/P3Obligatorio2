@@ -15,10 +15,10 @@ namespace ProvEventos.Models
     {
         public Evento Evento { get; set; }
         public IEnumerable<SelectListItem> TiposDeEvento { get; set; }
-        public Dictionary<Servicio,Proveedor> ServiciosSeleccionados { get; set; }
+        public List<ServicioProveedor> ServiciosSeleccionados { get; set; }
         public EventoViewModels()
         {
-            ServiciosSeleccionados = new Dictionary<Servicio, Proveedor>();
+            ServiciosSeleccionados = new List<ServicioProveedor>();
         }
     }
 }

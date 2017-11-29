@@ -231,6 +231,7 @@
     <Compile Include="Models\ProvEventosInitializer.cs" />
     <Compile Include="Models\Rol.cs" />
     <Compile Include="Models\Servicio.cs" />
+    <Compile Include="Models\ServicioProveedor.cs" />
     <Compile Include="Models\Tipo_Evento.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
