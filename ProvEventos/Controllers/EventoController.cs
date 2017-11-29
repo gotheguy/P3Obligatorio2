@@ -81,7 +81,6 @@ namespace ProvEventos.Controllers
         {
             try
             {
-                db.Configuration.ProxyCreationEnabled = false;
                 Organizador usu = db.Organizadores.AsNoTracking().SingleOrDefault(u => u.UserName == this.User.Identity.Name);
                 model.ServiciosSeleccionados = (List<ServicioProveedor>)Session["ServiciosSeleccionados"];
                 //if (ModelState.IsValid && model.ServiciosSeleccionados == null)
