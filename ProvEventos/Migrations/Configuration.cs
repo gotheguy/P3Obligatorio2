@@ -83,8 +83,6 @@ namespace ProvEventos.Migrations
             UserManager.Create(user);
             user = new ApplicationUser { UserName = "edu093@gmail.com", Email = "edu093@gmail.com", PasswordHash = hasher.HashPassword("HHhh.2015") };
             UserManager.Create(user);
-
-
             user = new ApplicationUser { UserName = "xmax@gmail.com", Email = "xmax@gmail.com", PasswordHash = hasher.HashPassword("EEee.2015") };
             UserManager.Create(user);
             user = new ApplicationUser { UserName = "gleam@gmail.com", Email = "gleam@gmail.com", PasswordHash = hasher.HashPassword("GGgg.2017") };

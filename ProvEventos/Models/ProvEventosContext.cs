@@ -20,6 +20,7 @@ namespace ProvEventos.Models
         public DbSet<Organizador> Organizadores { get; set; }
         public DbSet<Rol> Roles { get; set; }
         public DbSet<Evento> Eventos { get; set; }
+        public DbSet<Calificacion> Calificaciones { get; set; }
 
         public ProvEventosContext() : base("name=ProvEventos")
         {

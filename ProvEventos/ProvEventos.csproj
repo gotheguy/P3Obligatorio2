@@ -218,6 +218,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Administrador.cs" />
+    <Compile Include="Models\Calificacion.cs" />
     <Compile Include="Models\Evento.cs" />
     <Compile Include="Models\EventoViewModels.cs" />
     <Compile Include="Models\Organizador.cs" />
@@ -308,8 +309,8 @@
     <Content Include="Views\Organizador\Index.cshtml" />
     <Content Include="Views\Listados\Index.cshtml" />
     <Content Include="Views\Listados\Organizadores.cshtml" />
-    <Content Include="Views\Evento\Create.cshtml" /> 
-	<Content Include="Views\ListaEventosxFecha\Index.cshtml" />
+    <Content Include="Views\Evento\Create.cshtml" />
+    <Content Include="Views\ListaEventosxFecha\Index.cshtml" />
     <Content Include="Views\ListaEventosxFecha\Eventos.cshtml" />
     <Content Include="Views\Shared\Forbidden.cshtml" />
   </ItemGroup>
