@@ -27,6 +27,7 @@ namespace ProvEventos.Models
         [Column("Comentario", Order = 3, TypeName = "varchar")]
         public string Comentario { get; set; }
 
+        public string Id { get; set; }
         public virtual Proveedor Proveedor { get; set; }
     }
 }

@@ -11,6 +11,9 @@ namespace ProvEventos.Models
     [Table("Proveedor")]
     public class Proveedor : Usuario
     {   
+        [Key]
+        public override string Id { get; set; }
+
         [Required(ErrorMessage = "El RUT no puede estar vacío")]
         [Column("Rut", Order = 2, TypeName = "varchar")]
         public string Rut { get; set; }

@@ -27,15 +27,15 @@ namespace ProvEventos.Controllers
             if (nombreUsuario != null && nombreUsuario != "")
             {
                 Usuario usu = db.Usuarios.AsEnumerable().FirstOrDefault(u => u.UserName == nombreUsuario);
-                //if (usu.Rol.Roles == Roles.Administrador)
-                //{
+                if (usu.Rol.Roles == Roles.Administrador)
+                {
                     var eventos = from p in db.Eventos
                                   select p;
 
                     return View(eventos);
-                //}
-                //else
-                //    return View("Forbidden");
+                }
+                else
+                    return View("Forbidden");
             }
             else
             {
@@ -50,46 +50,35 @@ namespace ProvEventos.Controllers
             if (nombreUsuario != null && nombreUsuario != "")
             {
                 Usuario usu = db.Usuarios.AsEnumerable().FirstOrDefault(u => u.UserName == nombreUsuario);
-                //if (usu.Rol.Roles == Roles.Administrador)
-                //{
-
+                if (usu.Rol.Roles == Roles.Administrador)
+                {
                     var eventos = default(object);
 
-                    DateTime dI;
-                    DateTime dF;
-                    bool tryParseDI = DateTime.TryParse(fechaini, out dI);
-                    bool tryParseDF = DateTime.TryParse(fechafin, out dF);
-                    if (!tryParseDI && !tryParseDF)
-                        {
-                            eventos = from p in db.Eventos
-                                      select p;
-                        }
-                    else if(tryParseDI && !tryParseDF)
+                    if (fechaini == "" && fechafin == "")
                     {
                         eventos = from p in db.Eventos
-                                  where p.FechaEvento >= dI
                                   select p;
                     }
-                    else if (tryParseDI && tryParseDF)
+                    else if(fechaini != "" && fechafin == "")
                     {
                         eventos = from p in db.Eventos
-                                  where p.FechaEvento >= dI && p.FechaEvento <= dF
+                                  //where p.FechaEvento >= f1
                                   select p;
                     }
-                    else if (!tryParseDI && tryParseDF)
-                        {
-                            eventos = from p in db.Eventos
-                                      where p.FechaEvento <= dF
-                                      select p;
-                        }
+                    else if (fechaini == "" && fechafin != "")
+                    {
+                        eventos = from p in db.Eventos
+                                      //where p.FechaEvento >= f1
+                                  select p;
+                    }
                     return View(eventos);
-                //}
-                //else
-                //    return View("Forbidden");
+                }
+                else
+                    return RedirectToAction("Index", "Home");
             }
             else
             {
-                return View("Forbidden");
+                return RedirectToAction("Index", "Home");
             }
         }
     }
