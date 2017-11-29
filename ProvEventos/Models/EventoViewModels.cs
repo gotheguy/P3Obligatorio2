@@ -5,6 +5,8 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using HtmlHelpers.BeginCollectionItem;
+
 using System.Web.Mvc;
 
 namespace ProvEventos.Models
@@ -13,7 +15,10 @@ namespace ProvEventos.Models
     {
         public Evento Evento { get; set; }
         public IEnumerable<SelectListItem> TiposDeEvento { get; set; }
-        public List<Proveedor> ProveedoresGridview { get; set; }
         public Dictionary<Servicio,Proveedor> ServiciosSeleccionados { get; set; }
+        public EventoViewModels()
+        {
+            ServiciosSeleccionados = new Dictionary<Servicio, Proveedor>();
+        }
     }
 }

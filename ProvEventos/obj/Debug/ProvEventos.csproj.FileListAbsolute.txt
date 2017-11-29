@@ -80,6 +80,10 @@ C:\Users\inglo_000\Documents\GitHub\P3Obligatorio2\ProvEventos\bin\Microsoft.Owi
 C:\Users\inglo_000\Documents\GitHub\P3Obligatorio2\ProvEventos\obj\Debug\ProvEventos.csprojResolveAssemblyReference.cache
 C:\Users\inglo_000\Documents\GitHub\P3Obligatorio2\ProvEventos\obj\Debug\ProvEventos.dll
 C:\Users\inglo_000\Documents\GitHub\P3Obligatorio2\ProvEventos\obj\Debug\ProvEventos.pdb
+C:\Users\inglo_000\Documents\GitHub\P3Obligatorio2\ProvEventos\obj\Debug\ProvEventos.Migrations.initcreate.resources
+C:\Users\inglo_000\Documents\GitHub\P3Obligatorio2\ProvEventos\obj\Debug\ProvEventos.csproj.GenerateResource.Cache
+C:\ReposOrt\P3Obligatorio2\ProvEventos\obj\Debug\ProvEventos.Migrations.initcreate.resources
+C:\ReposOrt\P3Obligatorio2\ProvEventos\obj\Debug\ProvEventos.csproj.GenerateResource.Cache
 C:\ReposOrt\P3Obligatorio2\ProvEventos\bin\ApplicationInsights.config
 C:\ReposOrt\P3Obligatorio2\ProvEventos\bin\roslyn\csc.exe
 C:\ReposOrt\P3Obligatorio2\ProvEventos\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
@@ -97,6 +101,7 @@ C:\ReposOrt\P3Obligatorio2\ProvEventos\bin\ProvEventos.dll.config
 C:\ReposOrt\P3Obligatorio2\ProvEventos\bin\ProvEventos.dll
 C:\ReposOrt\P3Obligatorio2\ProvEventos\bin\ProvEventos.pdb
 C:\ReposOrt\P3Obligatorio2\ProvEventos\bin\Antlr3.Runtime.dll
+C:\ReposOrt\P3Obligatorio2\ProvEventos\bin\BeginCollectionItem.dll
 C:\ReposOrt\P3Obligatorio2\ProvEventos\bin\EntityFramework.dll
 C:\ReposOrt\P3Obligatorio2\ProvEventos\bin\EntityFramework.SqlServer.dll
 C:\ReposOrt\P3Obligatorio2\ProvEventos\bin\Microsoft.AI.Agent.Intercept.dll
@@ -159,8 +164,5 @@ C:\ReposOrt\P3Obligatorio2\ProvEventos\bin\Microsoft.Owin.Security.OAuth.xml
 C:\ReposOrt\P3Obligatorio2\ProvEventos\bin\Microsoft.Owin.Security.Google.xml
 C:\ReposOrt\P3Obligatorio2\ProvEventos\bin\Microsoft.Owin.Security.Twitter.xml
 C:\ReposOrt\P3Obligatorio2\ProvEventos\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\ReposOrt\P3Obligatorio2\ProvEventos\obj\Debug\ProvEventos.csprojResolveAssemblyReference.cache
 C:\ReposOrt\P3Obligatorio2\ProvEventos\obj\Debug\ProvEventos.dll
 C:\ReposOrt\P3Obligatorio2\ProvEventos\obj\Debug\ProvEventos.pdb
-C:\Users\inglo_000\Documents\GitHub\P3Obligatorio2\ProvEventos\obj\Debug\ProvEventos.Migrations.initcreate.resources
-C:\Users\inglo_000\Documents\GitHub\P3Obligatorio2\ProvEventos\obj\Debug\ProvEventos.csproj.GenerateResource.Cache

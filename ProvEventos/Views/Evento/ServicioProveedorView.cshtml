@@ -1,0 +1,22 @@
+﻿@model ProvEventos.Models.EventoViewModels
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ServiciosSeleccionados.Keys)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ServiciosSeleccionados.Values)
+        </th>
+    </tr>
+    @foreach (var item in Model.ServiciosSeleccionados)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Key.NombreServicio) - @Html.DisplayFor(modelItem => item.Key.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value.NombreFantasia)
+            </td>
+        </tr>
+    }
+</table>
