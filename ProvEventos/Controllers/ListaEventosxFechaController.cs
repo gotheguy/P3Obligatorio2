@@ -35,11 +35,11 @@ namespace ProvEventos.Controllers
                     return View(eventos);
                 }
                 else
-                    return RedirectToAction("Index", "Home");
+                    return View("Forbidden");
             }
             else
             {
-                return RedirectToAction("Index", "Home");
+                return View("Forbidden");
             }
         }
 

@@ -40,99 +40,23 @@ namespace ProvEventos.Controllers
             
         }
 
-        public ActionResult CalificarProveedores()
+        public ActionResult Eventos()
         {
-            String nombreUsuario = this.User.Identity.Name;
+            String nombreUsuario = User.Identity.Name;
             if (nombreUsuario != null && nombreUsuario != "")
             {
-                Usuario usu = db.Usuarios.AsEnumerable().FirstOrDefault(u => u.UserName == nombreUsuario);
-                if (usu.Rol.Roles == Roles.Administrador)
-                {
-                    return View();
-                }
-                else
-                {
-                    return View("Forbidden");
-                }
+                Usuario usu = db.Usuarios.AsEnumerable().FirstOrDefault(u => u.Id == nombreUsuario);
+
+                var eventos = from p in db.Eventos
+                              where p.Organizador.UserName == usu.Id
+                              select p;
+
+                return View(eventos);
             }
             else
             {
                 return View("Forbidden");
             }
         }
-
-        /*
-        // GET: Listados/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Listados/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Listados/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Listados/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: Listados/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Listados/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Listados/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-        */
     }
 }

@@ -11,6 +11,9 @@ namespace ProvEventos.Models
     [Table("Organizador")]
     public class Organizador : Usuario
     {
+        [Key]
+        public override string Id { get; set; }
+
         [Required]
         [StringLength(100, ErrorMessage = "El nombre no puede ser mayor a 100 caracteres")]
         [DisplayName("Nombre")]
@@ -25,10 +28,5 @@ namespace ProvEventos.Models
         public string Telefono { get; set; }
 
         public ICollection<Evento> Eventos { get; set; }
-
-        //public static implicit operator Organizador(string v)
-        //{
-        //    return new Organizador().Id;
-        //}
     }
 }
