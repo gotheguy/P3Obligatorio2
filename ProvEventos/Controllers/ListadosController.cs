@@ -21,7 +21,7 @@ namespace ProvEventos.Controllers
             String nombreUsuario = this.User.Identity.Name;
             if (nombreUsuario != null && nombreUsuario != "")
             {
-                Usuario usu = db.Usuarios.AsEnumerable().FirstOrDefault(u => u.NombreUsuario == nombreUsuario);
+                Usuario usu = db.Usuarios.AsEnumerable().FirstOrDefault(u => u.UserName == nombreUsuario);
                 if (usu.Rol.Roles == Roles.Administrador)
                 {
                     IEnumerable<ProvEventos.Models.Organizador> organizadores;

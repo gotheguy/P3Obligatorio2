@@ -153,29 +153,30 @@ namespace ProvEventos.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, PhoneNumber = model.Numero, };
+                
+                var hasher = new PasswordHasher();
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, PasswordHash = hasher.HashPassword(model.Clave) };
                 var result = await UserManager.CreateAsync(user, model.Clave);
-                var telefono = new Telefono()
-                {
-                    Numero = model.Numero
-                };
-                db.Telefonos.Add(telefono);
 
-                var organizador = new Organizador()
-                {
-                    NombreUsuario = model.Email,
-                    Clave = model.Clave,
-                    FechaRegistro = DateTime.Now,
-                    RolID = 2,
-                    NombreOrganizador = model.NombreOrganizador,
-                    Email = model.Email
-                };
-                db.Organizadores.Add(organizador);
+
+                    var organizador = new Organizador()
+                    {
+                        UserName = model.Email,
+                        PasswordHash = hasher.HashPassword(model.Clave),
+                        Email = model.Email,
+                        PhoneNumber = model.Telefono,
+                        SecurityStamp = Guid.NewGuid().ToString(),
+                        FechaRegistro = DateTime.Now,
+                        RolID = 2,
+                        NombreOrganizador = model.NombreOrganizador,
+                        Telefono = model.Telefono
+                    };
+                    db.Organizadores.Add(organizador);
 
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
+                    
                     db.SaveChanges();
 
                     return RedirectToAction("Index", "Home");

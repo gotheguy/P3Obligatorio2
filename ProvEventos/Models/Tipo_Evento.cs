@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
 
 namespace ProvEventos.Models
 {
@@ -16,6 +17,7 @@ namespace ProvEventos.Models
         public int TipoEventoID { get; set; }
 
         [Required]
+        [DisplayName("Evento")]
         [StringLength(100, ErrorMessage = "El nombre no puede ser mayor a 100 caracteres")]
         [Column("NombreTipoEvento", Order = 2, TypeName = "varchar")]
         public string NombreTipoEvento { get; set; }
@@ -25,5 +27,7 @@ namespace ProvEventos.Models
         public string Descripcion { get; set; }
 
         public virtual ICollection<Servicio> Servicios { get; set; }
+
+        public virtual ICollection<Evento> Eventos { get; set; }
     }
 }

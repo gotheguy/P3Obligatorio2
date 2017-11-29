@@ -13,6 +13,8 @@ namespace ProvEventos.Controllers
     [Authorize]
     public class ManageController : Controller
     {
+        private ProvEventosContext db = new ProvEventosContext();
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -59,7 +61,7 @@ namespace ProvEventos.Controllers
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
                 : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
                 : message == ManageMessageId.Error ? "An error has occurred."
-                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
+                : message == ManageMessageId.AddPhoneSuccess ? "Tu teléfono ha sido cambiado."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : "";
 
@@ -117,17 +119,17 @@ namespace ProvEventos.Controllers
                 return View(model);
             }
             // Generate the token and send it
-            var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), model.Number);
+            var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), model.Telefono);
             if (UserManager.SmsService != null)
             {
                 var message = new IdentityMessage
                 {
-                    Destination = model.Number,
+                    Destination = model.Telefono,
                     Body = "Your security code is: " + code
                 };
                 await UserManager.SmsService.SendAsync(message);
             }
-            return RedirectToAction("VerifyPhoneNumber", new { PhoneNumber = model.Number });
+            return RedirectToAction("VerifyPhoneNumber", new { PhoneNumber = model.Telefono });
         }
 
         //
@@ -166,7 +168,7 @@ namespace ProvEventos.Controllers
         {
             var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), phoneNumber);
             // Send an SMS through the SMS provider to verify the phone number
-            return phoneNumber == null ? View("Error") : View(new VerifyPhoneNumberViewModel { PhoneNumber = phoneNumber });
+            return phoneNumber == null ? View("Error") : View(new VerifyPhoneNumberViewModel {});
         }
 
         //
@@ -179,13 +181,19 @@ namespace ProvEventos.Controllers
             {
                 return View(model);
             }
-            var result = await UserManager.ChangePhoneNumberAsync(User.Identity.GetUserId(), model.PhoneNumber, model.Code);
+            var result = await UserManager.SetPhoneNumberAsync(User.Identity.GetUserId(), model.Telefono);
+
+            var organizador = db.Organizadores.SingleOrDefault(o => o.UserName == User.Identity.Name);
+           
+            organizador.Telefono = model.Telefono;
+
             if (result.Succeeded)
             {
                 var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
                 if (user != null)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    db.SaveChanges();
                 }
                 return RedirectToAction("Index", new { Message = ManageMessageId.AddPhoneSuccess });
             }

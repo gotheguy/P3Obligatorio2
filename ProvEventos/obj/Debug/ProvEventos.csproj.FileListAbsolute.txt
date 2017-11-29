@@ -162,3 +162,5 @@ C:\ReposOrt\P3Obligatorio2\ProvEventos\bin\Microsoft.Owin.Security.MicrosoftAcco
 C:\ReposOrt\P3Obligatorio2\ProvEventos\obj\Debug\ProvEventos.csprojResolveAssemblyReference.cache
 C:\ReposOrt\P3Obligatorio2\ProvEventos\obj\Debug\ProvEventos.dll
 C:\ReposOrt\P3Obligatorio2\ProvEventos\obj\Debug\ProvEventos.pdb
+C:\Users\inglo_000\Documents\GitHub\P3Obligatorio2\ProvEventos\obj\Debug\ProvEventos.Migrations.initcreate.resources
+C:\Users\inglo_000\Documents\GitHub\P3Obligatorio2\ProvEventos\obj\Debug\ProvEventos.csproj.GenerateResource.Cache
