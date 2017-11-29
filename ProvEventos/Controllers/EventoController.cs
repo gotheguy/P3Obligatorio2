@@ -11,6 +11,8 @@ namespace ProvEventos.Controllers
     {
         private ProvEventosContext db = new ProvEventosContext();
 
+        private EventoViewModels model = new EventoViewModels();
+
         // GET: Evento/Create
         public ActionResult Create()
         {
@@ -20,7 +22,7 @@ namespace ProvEventos.Controllers
                 Usuario usu = db.Usuarios.AsEnumerable().FirstOrDefault(u => u.UserName == nombreUsuario);
                 if (usu.Rol.Roles == Roles.Organizador)
                 {
-                    var model = new EventoViewModels();
+                    //var model = new EventoViewModels();
                     var a = db.Tipo_Eventos.ToList().Select(x => x);
                     model.TiposDeEvento = db.Tipo_Eventos.ToList().Select(x => new SelectListItem
                     {
@@ -89,18 +91,20 @@ namespace ProvEventos.Controllers
         }
 
         // POST: Evento/Create
-        [HttpPost]
-        public ActionResult AddService(FormCollection collection)
+        [HttpGet]
+        public ActionResult AddService(int? serviceValue, string providerValue, string data)
         {
             try
             {
-                int serviceValue;
-                string providerValue = collection["ddlProveedor"];
-                bool ok = int.TryParse(collection["ddlServicio"],out serviceValue);
-                if (ok && providerValue != null)
+                if (serviceValue != null && providerValue != null)
                 {
                     Servicio servicio = db.Servicios.FirstOrDefault(s => s.ServicioID == serviceValue);
                     Proveedor proveedor = db.Proveedores.FirstOrDefault(s => s.Rut == providerValue);
+                    ServicioProveedor sp = new ServicioProveedor() {
+                        IdServicio = servicio.ServicioID, NombreServicio = servicio.NombreServicio, IdProveedor = proveedor.Rut, NombreProveedor = proveedor.NombreFantasia
+                    };
+                    model.ServiciosSeleccionados.Add(sp);
+                    return PartialView("ServicioProveedorView", model);
                 }
                 return RedirectToAction("Index");
             }
@@ -108,6 +112,13 @@ namespace ProvEventos.Controllers
             {
                 return View();
             }
+        }
+
+        [HttpGet]
+        public ActionResult GetServicioProveedor()
+        {
+            //var model = new EventoViewModels();
+            return PartialView("ServicioProveedor", model);
         }
     }
 }

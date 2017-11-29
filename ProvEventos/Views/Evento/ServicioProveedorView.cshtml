@@ -1,0 +1,22 @@
+﻿@model ProvEventos.Models.EventoViewModels
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ServiciosSeleccionados)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ServiciosSeleccionados)
+        </th>
+    </tr>
+    @foreach (var item in Model.ServiciosSeleccionados)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreServicio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreProveedor)
+            </td>
+        </tr>
+    }
+</table>

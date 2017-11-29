@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Create";
+    var val = Json.Encode(Model);
 }
 
 <h2>Agregar Evento</h2>
@@ -18,7 +19,7 @@
             @Html.LabelFor(model => model.Evento.FechaEvento, htmlAttributes: new { @class = "control-label col-md-2" })
             @if(Model.TiposDeEvento!= null){ 
                 <div class="col-md-10">
-                    @Html.DropDownListFor(x => Model.Evento.Tipo, Model.TiposDeEvento, "Seleccionar tipo", new { @class = "form-control", @id = "typeSelector" })
+                    @Html.DropDownListFor(x => Model.Evento.TipoEvento, Model.TiposDeEvento, "Seleccionar tipo", new { @class = "form-control", @id = "typeSelector" })
                     @Html.ValidationMessageFor(model => model.Evento.FechaEvento, "", new { @class = "text-danger" })
                 </div>
             }
@@ -42,7 +43,7 @@
 
         <div class="form-group" id="OtherSpecifyFormGroup">
             @Html.LabelFor(model => model.Evento.Servicios, new { @class = "control-label col-md-2" })
-            @if (Model.ServiciosSeleccionados != null)
+            @*@if (Model.ServiciosSeleccionados != null)
             {
                 <div class="col-md-8 sbchanged">
                     <table class="table">
@@ -67,13 +68,22 @@
                         }
                     </table>
                 </div>
-            }
+            }*@
+            @*@if (Model.ServiciosSeleccionados != null)
+            {
+                <div id="dvserviciosproveedores" class="col-md-8 sbchanged">
+                    //@{Html.RenderPartial("ServicioProveedorView", Model);}
+                </div>
+            }*@
+            <div id="dvserviciosproveedores" class="col-md-8 sbchanged"></div>
             <div class="col-md-8 sbchanged">
                 <select id="ddlServicio" name="ddlServicio" class="col-md-4 form-control" style="width: 200px"></select>&nbsp;&nbsp;
                 <select id="ddlProveedor" name="ddlProveedor" class="col-md-4 form-control" style="width: 200px; margin-left: 5px"></select>
             </div>
             <div class="col-md-2">
-                <input id="btnAdd" name="btnAdd" type="submit" value="Agregar Servicio" class="btn btn-default" hidden="hidden"/>
+
+                @*<button type="button" id="btnAdd" class="btn btn-default" hidden="hidden">Agregar Servicio</button>*@
+                <input id="AddService" name="AddService" type="button" value="Agregar Servicio" class="btn btn-default" hidden="hidden"/>
             </div>
         </div>
 
@@ -143,6 +153,18 @@
                     $("#ddlProveedor").hide();
                     $("#btnAdd").hide();
                 }
+            });
+            $("#AddService").on("click", function () {
+                var service = $("#ddlServicio option:selected").val();
+                var provider = $("#ddlProveedor option:selected").val();
+                $.get('@Url.Action("AddService", "Evento")', {
+                    serviceValue: service,
+                    providerValue: provider,
+                    data: '{info:' + JSON.stringify(val) + '}' 
+                }, function (result) {
+                    alert(result);
+                    $("#dvserviciosproveedores").html(result);
+                })
             });
         })
     </script>

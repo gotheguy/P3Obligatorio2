@@ -48,7 +48,7 @@ namespace ProvEventos.Migrations
                 new Administrador { UserName = "fmoreno@gmail.com", PasswordHash = hasher.HashPassword("ZZzz.2013"), Email = "fmoreno@hotmail.com", PhoneNumber = "095669215", SecurityStamp = Guid.NewGuid().ToString(), FechaRegistro = DateTime.Now, RolID = 1 },
                 new Administrador { UserName = "edu093@gmail.com", PasswordHash = hasher.HashPassword("HHhh.2015"), Email = "edu093@gmail.com", PhoneNumber = "099639865", SecurityStamp = Guid.NewGuid().ToString(), FechaRegistro = DateTime.Now, RolID = 1 }
                 );
-
+            
             context.Proveedores.AddOrUpdate(
                 p => p.UserName,
                 new Proveedor() { UserName = "xmax@gmail.com", PasswordHash = hasher.HashPassword("EEee.2015"), Email = "xmax@gmail.com", PhoneNumber = "099998521", SecurityStamp = Guid.NewGuid().ToString(), FechaRegistro = DateTime.Now, RolID = 3, Rut = "R8998422", NombreFantasia = "XMAX CO", Telefono = "099998521", Activo = true, VIP = false },
@@ -95,8 +95,8 @@ namespace ProvEventos.Migrations
 
             try
             {   // Open the text file using a stream reader.
-                List<Tipo_Evento> tipoEventos = new List<Tipo_Evento>();
                 List<Servicio> servicios = new List<Servicio>();
+                Dictionary<string, Tipo_Evento> tipoEventos = new Dictionary<string, Tipo_Evento>();
                 string serviceFile = AppDomain.CurrentDomain.BaseDirectory + @"\App_data\FileServicios.txt";
                 string providerFile = AppDomain.CurrentDomain.BaseDirectory + @"\App_data\FileProveedores.txt";
                 using (StreamReader sr = new StreamReader(serviceFile))
@@ -116,10 +116,14 @@ namespace ProvEventos.Migrations
                         {
                             foreach (string tipo in dataTipo)
                             {
-                                Tipo_Evento tEvento = new Tipo_Evento() { NombreTipoEvento = tipo };
+                                if (!tipoEventos.Keys.Contains(tipo))
+                                {
+                                    tipoEventos.Add(tipo, new Tipo_Evento() { NombreTipoEvento = tipo });
+                                }
+                                //Tipo_Evento tEvento = new Tipo_Evento() { NombreTipoEvento = tipo };
                                 //Tipo_Evento tEvento = context.Tipo_Eventos.AsEnumerable().FirstOrDefault(c => c.NombreTipoEvento == tipo);
 
-                                s.TipoEvento.Add(tEvento);
+                                s.TipoEvento.Add(tipoEventos[tipo]);
                                 //context.Tipo_Eventos.AddOrUpdate(
                                 //p => p.NombreTipoEvento, tEvento);
                             }
@@ -185,8 +189,9 @@ namespace ProvEventos.Migrations
                 Console.WriteLine("The file could not be read:");
                 Console.WriteLine(e.Message);
             }
-
+            
             context.Eventos.AddOrUpdate(
+<<<<<<< HEAD
             p => p.Direccion, 
             new Evento { Direccion = "Rivera 2944", FechaEvento = DateTime.Now.AddDays(7), TipoEventoID = 3 },
             new Evento { Direccion = "Gonzalo Ramirez 3555", FechaEvento = DateTime.Now.AddDays(16), TipoEventoID = 1 },
@@ -199,6 +204,20 @@ namespace ProvEventos.Migrations
             new Evento { Direccion = "Sarandi 6600", FechaEvento = DateTime.Now.AddDays(5), TipoEventoID = 1 },
             new Evento { Direccion = "Blvar. Artigas 8540", FechaEvento = DateTime.Now.AddDays(12), TipoEventoID = 8 },
             new Evento { Direccion = "Jaime Cibils 1230", FechaEvento = DateTime.Now.AddDays(3), TipoEventoID = 2 }
+=======
+            p => p.Direccion,
+            new Evento { Direccion = "Rivera 2944", FechaEvento = DateTime.Now.AddDays(7), TipoEventoID = 3},
+            new Evento { Direccion = "Gonzalo Ramirez 3555", FechaEvento = DateTime.Now.AddDays(16), TipoEventoID = 1},
+            new Evento { Direccion = "Ejido 3412", FechaEvento = DateTime.Now.AddDays(22), TipoEventoID = 1},
+            new Evento { Direccion = "Canelones 1220", FechaEvento = DateTime.Now.AddDays(2), TipoEventoID = 4},
+            new Evento { Direccion = "18 de Julio 1550", FechaEvento = DateTime.Now.AddDays(4), TipoEventoID = 4},
+            new Evento { Direccion = "Mercedes 5959", FechaEvento = DateTime.Now.AddDays(17), TipoEventoID = 3},
+            new Evento { Direccion = "Rivera 3400", FechaEvento = DateTime.Now.AddDays(30), TipoEventoID = 7},
+            new Evento { Direccion = "Av. Italia 3540", FechaEvento = DateTime.Now.AddDays(1), TipoEventoID = 5},
+            new Evento { Direccion = "Sarandi 6600", FechaEvento = DateTime.Now.AddDays(5), TipoEventoID = 1},
+            new Evento { Direccion = "Blvar. Artigas 8540", FechaEvento = DateTime.Now.AddDays(12), TipoEventoID = 8},
+            new Evento { Direccion = "Jaime Cibils 1230", FechaEvento = DateTime.Now.AddDays(3), TipoEventoID = 2}
+>>>>>>> 9804e522d0c8d77bd7ecb6b84120d5d2349f48e8
             );
         }
     }
