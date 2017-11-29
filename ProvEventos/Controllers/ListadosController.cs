@@ -40,6 +40,27 @@ namespace ProvEventos.Controllers
             
         }
 
+        public ActionResult CalificarProveedores()
+        {
+            String nombreUsuario = this.User.Identity.Name;
+            if (nombreUsuario != null && nombreUsuario != "")
+            {
+                Usuario usu = db.Usuarios.AsEnumerable().FirstOrDefault(u => u.UserName == nombreUsuario);
+                if (usu.Rol.Roles == Roles.Administrador)
+                {
+                    return View();
+                }
+                else
+                {
+                    return View("Forbidden");
+                }
+            }
+            else
+            {
+                return View("Forbidden");
+            }
+        }
+
         /*
         // GET: Listados/Details/5
         public ActionResult Details(int id)
