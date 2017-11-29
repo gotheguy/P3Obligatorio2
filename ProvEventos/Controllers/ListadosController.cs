@@ -45,10 +45,10 @@ namespace ProvEventos.Controllers
             String nombreUsuario = User.Identity.Name;
             if (nombreUsuario != null && nombreUsuario != "")
             {
-                Usuario usu = db.Usuarios.AsEnumerable().FirstOrDefault(u => u.Id == nombreUsuario);
+                Usuario usu = db.Usuarios.AsEnumerable().FirstOrDefault(u => u.UserName == nombreUsuario);
 
                 var eventos = from p in db.Eventos
-                              where p.Organizador.UserName == usu.Id
+                              where p.Organizador.Id == usu.Id
                               select p;
 
                 return View(eventos);
