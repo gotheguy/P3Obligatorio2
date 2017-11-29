@@ -33,9 +33,9 @@ namespace ProvEventos.Models
         public virtual Tipo_Evento TipoEvento { get; set; }
 
         public virtual List<Servicio> Servicios { get; set; }
+
         public virtual List<Proveedor> Proveedores { get; set; }
 
         public virtual Organizador Organizador { get; set; }
-
     }
 }

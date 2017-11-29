@@ -33,6 +33,10 @@ namespace ProvEventos.Models
         [Column("VIP", Order = 6, TypeName = "bit")]
         public bool VIP { get; set; }
 
+        public virtual Evento Evento { get; set; }
+
         public virtual ICollection<Servicio> Servicios { get; set; }
+
+        public virtual ICollection<Calificacion> Calificaciones { get; set; }
     }
 }
