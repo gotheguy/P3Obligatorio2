@@ -32,6 +32,9 @@ namespace ProvEventos.Models
         public String Direccion { get; set; }
 
         public virtual List<Servicio> Servicios { get; set; }
+        public virtual List<Proveedor> Proveedores { get; set; }
+
+        public virtual Organizador Organizador { get; set; }
 
     }
 }

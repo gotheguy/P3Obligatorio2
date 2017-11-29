@@ -38,14 +38,38 @@ namespace ProvEventos.Controllers
             }
         }
 
-        [HttpPost]
-        public ActionResult GetCityByStaeId(int typeId)
+        [HttpGet]
+        public ActionResult GetServiceData(int? typeId)
         {
-            Tipo_Evento t = db.Tipo_Eventos.FirstOrDefault(m => m.TipoEventoID == typeId);
-            List<Servicio> objServicio = new List<Servicio>();
-            objServicio = db.Servicios.Where(m => m.TipoEvento.Contains(t)).ToList();
-            SelectList obgServicio = new SelectList(objServicio, "Id", "CityName", 0);
-            return Json(obgServicio);
+            SelectList obgServicio = new SelectList("");
+            if (typeId != null)
+            {
+                Tipo_Evento t = db.Tipo_Eventos.FirstOrDefault(m => m.TipoEventoID == typeId);
+                if (t != null)
+                {
+                    List<Servicio> objServicio = new List<Servicio>();
+                    objServicio = t.Servicios.ToList<Servicio>();
+                    obgServicio = new SelectList(objServicio, "ServicioID", "NombreServicio", 0);
+                }
+            }
+            return Json(obgServicio, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult GetProviderData(int? servicioId)
+        {
+            SelectList obgProveedor = new SelectList("");
+            if (servicioId != null)
+            {
+                Servicio s = db.Servicios.FirstOrDefault(m => m.ServicioID == servicioId);
+                if (s != null)
+                {
+                    List<Proveedor> objProveedor = new List<Proveedor>();
+                    objProveedor = s.Proveedores.ToList<Proveedor>();
+                    obgProveedor = new SelectList(objProveedor, "Rut", "NombreFantasia", 0);
+                }
+            }
+            return Json(obgProveedor, JsonRequestBehavior.AllowGet);
         }
 
         // POST: Evento/Create
@@ -66,12 +90,18 @@ namespace ProvEventos.Controllers
 
         // POST: Evento/Create
         [HttpPost]
-        public ActionResult Add(FormCollection collection)
+        public ActionResult AddService(FormCollection collection)
         {
             try
             {
-                // TODO: Add insert logic here
-
+                int serviceValue;
+                string providerValue = collection["ddlProveedor"];
+                bool ok = int.TryParse(collection["ddlServicio"],out serviceValue);
+                if (ok && providerValue != null)
+                {
+                    Servicio servicio = db.Servicios.FirstOrDefault(s => s.ServicioID == serviceValue);
+                    Proveedor proveedor = db.Proveedores.FirstOrDefault(s => s.Rut == providerValue);
+                }
                 return RedirectToAction("Index");
             }
             catch

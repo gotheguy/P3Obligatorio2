@@ -25,5 +25,6 @@ namespace ProvEventos.Models
         [Column("Email", Order = 3, TypeName = "varchar")]
         public string Email { get; set; }
 
+        public List<Evento> EventosOrganizados { get; set; }
     }
 }
